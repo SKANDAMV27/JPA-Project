@@ -87,7 +87,7 @@
                 <div class="mb-3">
                   <label class="form-label">Gender</label>
                   <div>
-                    <input type="radio" name="gender" value="male" name="userGender" required> Male
+                    <input type="radio" name="gender" value="male"  required> Male
                     <input type="radio" name="gender" value="female" class="ms-3"> Female
                     <input type="radio" name="gender" value="other" class="ms-3"> Other
                   </div>
