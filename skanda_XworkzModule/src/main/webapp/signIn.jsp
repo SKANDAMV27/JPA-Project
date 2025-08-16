@@ -47,47 +47,47 @@
           <div class="card shadow-lg">
             <div class="card-body">
               <h3 class="text-center mb-4">Sign In</h3>
-              <form>
+              <form action="signIn" method="post">
                 <!-- Name -->
                 <div class="mb-3">
                   <label class="form-label">Name</label>
-                  <input type="text" class="form-control" placeholder="Enter your name" required>
+                  <input type="text" class="form-control" placeholder="Enter your name" name="userName" required>
                 </div>
                 <!-- Phone -->
                 <div class="mb-3">
                   <label class="form-label">Phone Number</label>
-                  <input type="tel" class="form-control" placeholder="Enter phone number" required>
+                  <input type="tel" class="form-control" placeholder="Enter phone number" name="phoneNumber" required>
                 </div>
                 <!-- Email -->
                 <div class="mb-3">
                   <label class="form-label">Email</label>
-                  <input type="email" class="form-control" placeholder="Enter your email" required>
+                  <input type="email" class="form-control" placeholder="Enter your email" name="userEmail" required>
                 </div>
                 <!-- Age -->
                 <div class="mb-3">
                   <label class="form-label">Age</label>
-                  <input type="number" class="form-control" placeholder="Enter your age" required>
+                  <input type="number" class="form-control" placeholder="Enter your age" name="userAge" required>
                 </div>
                 <!-- Password -->
                 <div class="mb-3">
                   <label class="form-label">Password</label>
-                  <input type="password" class="form-control" placeholder="Enter password" required>
+                  <input type="password" class="form-control" placeholder="Enter password" name="userPassword" required>
                 </div>
                 <!-- Confirm Password -->
                 <div class="mb-3">
                   <label class="form-label">Confirm Password</label>
-                  <input type="password" class="form-control" placeholder="Re-enter password" required>
+                  <input type="password" class="form-control" placeholder="Re-enter password" name="conformPassword" required>
                 </div>
                 <!-- Address -->
                 <div class="mb-3">
                   <label class="form-label">Address</label>
-                  <textarea class="form-control" rows="2" placeholder="Enter your address" required></textarea>
+                  <textarea class="form-control" rows="2" placeholder="Enter your address" name="userAdress" required></textarea>
                 </div>
                 <!-- Gender -->
                 <div class="mb-3">
                   <label class="form-label">Gender</label>
                   <div>
-                    <input type="radio" name="gender" value="male" required> Male
+                    <input type="radio" name="gender" value="male" name="userGender" required> Male
                     <input type="radio" name="gender" value="female" class="ms-3"> Female
                     <input type="radio" name="gender" value="other" class="ms-3"> Other
                   </div>
