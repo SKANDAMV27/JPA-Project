@@ -2,11 +2,11 @@ package com.xworkz.skanda_XworkzModule.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class xworkzInitilizer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class XworkzInitilizer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[0];
+        return new Class[]{XworkzConfiguration.class};
     }
 
     @Override
@@ -16,6 +16,6 @@ public class xworkzInitilizer extends AbstractAnnotationConfigDispatcherServletI
 
     @Override
     protected String[] getServletMappings() {
-        return new String[0];
+        return new String[]{"/"};
     }
 }
