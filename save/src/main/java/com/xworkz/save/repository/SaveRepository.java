@@ -4,5 +4,5 @@ import com.xworkz.save.entity.SaveEntity;
 
 public interface SaveRepository {
 
-    void save(SaveEntity saveEntity);
+    boolean save(SaveEntity saveEntity);
 }
