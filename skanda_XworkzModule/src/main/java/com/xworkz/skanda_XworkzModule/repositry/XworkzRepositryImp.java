@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 
 @Repository
 public class XworkzRepositryImp implements XworkzRepositry {
@@ -14,7 +15,7 @@ public class XworkzRepositryImp implements XworkzRepositry {
 //    EntityManagerFactory emf =  Persistence.createEntityManagerFactory("X-workZ");
 
     @Autowired
-    EntityManagerFactory emf;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("X-workZ");
 
     @Override
     public void save(XworkzEntity xworkz) {
