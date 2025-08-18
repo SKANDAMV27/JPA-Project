@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class xworkzServiceImp implements xworkzService {
 
-    @Autowired
+
     private xworkzRepositry xworkzRepositry;
 
     @Override

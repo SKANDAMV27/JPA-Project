@@ -1,15 +1,11 @@
 package com.xworkz.skanda_XworkzModule.entity;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Entity
 @Table(name="xworkz_table")
 public class xworkzEntity {
@@ -17,7 +13,7 @@ public class xworkzEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name="name")
-    @Size(max = 10,min = 3,message = "Name Should Max 10 and Min 3")
+
     private String userName;
     @Column(name="phone_number")
     @Pattern(regexp = "^(?:9876)[0-9]{6}$",message = "Phone Number Should Be 10 Digits and Start From 9876")
