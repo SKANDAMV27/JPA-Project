@@ -25,9 +25,6 @@ public class XworkzEntity {
 
     @Column(name="password")
     private String userPassword;
-    @Transient
-    private String conformPassword;
-
     @Column(name="adress")
     private String userAdress;
     @Column(name="gender")

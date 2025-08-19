@@ -22,6 +22,7 @@ public class XworkzServiceImp implements XworkzService {
     @Override
     public String save( XworkzDTO xworkzDTO) {
         XworkzEntity xworkz = new XworkzEntity();
+        xworkz.setId(xworkz.getId());
         xworkz.setUserName(xworkzDTO.getUserName());
         xworkz.setPhoneNumber(xworkzDTO.getPhoneNumber());
         xworkz.setUserEmail(xworkzDTO.getUserEmail());

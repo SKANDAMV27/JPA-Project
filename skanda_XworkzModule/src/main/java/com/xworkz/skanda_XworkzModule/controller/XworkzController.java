@@ -39,7 +39,7 @@ public class XworkzController {
         String value = xworkzServiceImp.save(xworkzDTO);
         System.out.println(value);
         model.addAttribute("success","Success");
-        return "signIn";
+        return "sigIn";
 
     }
 

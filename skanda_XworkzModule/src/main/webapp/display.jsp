@@ -1,11 +1,12 @@
 <%@ page isELIgnored="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
  <html>
  <head>
  <title>Display</title>
  </head>
  <body>
- <h1>${Name}</h1>
- <h1>${phone}</h1>
- <h1>${email}</h1>
+  <c:forEach items="${errors}" var="error">
+                 <div class="field-error">${error.defaultMessage}</div>
+               </c:forEach>
  </body>
  </html>
