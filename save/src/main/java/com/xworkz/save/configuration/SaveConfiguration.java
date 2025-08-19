@@ -1,10 +1,5 @@
 package com.xworkz.save.configuration;
 
-import com.xworkz.save.repository.SaveRepository;
-import com.xworkz.save.repository.SaveRepositoryImp;
-import com.xworkz.save.service.SaveService;
-import com.xworkz.save.service.SaveServiceImp;
-import org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +10,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.sql.DataSource;
+
 
 @Configuration
 @ComponentScan(basePackages = "com.xworkz.save")
@@ -27,9 +22,11 @@ public class SaveConfiguration implements WebMvcConfigurer {
     }
 
 
-    public void DefaultServletHandlerConfigurer(DefaultServletHandlerConfigurer defaultServletHandlerConfigurer)  {
-        defaultServletHandlerConfigurer.enable();
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
     }
+
 
     @Bean
     InternalResourceViewResolver internalResourceViewResolver(){
@@ -37,19 +34,12 @@ public class SaveConfiguration implements WebMvcConfigurer {
     }
 
 
-   public EntityManagerFactory entityManagerFactory(){
+    @Bean
+   public EntityManagerFactory emf(){
         return Persistence.createEntityManagerFactory("save");
    }
 
-   @Bean
-    public SaveService saveService(){
-        return new SaveServiceImp();
-   }
 
-   @Bean
-    public SaveRepository saveRepository(){
-        return new SaveRepositoryImp();
-   }
 
     
 

@@ -19,13 +19,15 @@ import java.util.List;
 @RequestMapping("/")
 public class SaveController {
 
+    @Autowired
+    private SaveService saveServiceImpl;
+
     public SaveController()
     {
         System.out.println("no  args of Controller...");
     }
 
-     @Autowired
-     private SaveService saveService;
+
 
     @RequestMapping("/save")
     public String save(Model model, @Valid SaveDto saveDto, BindingResult bindingResult){
@@ -41,21 +43,23 @@ public class SaveController {
             return "save";
         }
 
-       String name = saveService.save(saveDto);
+       String value = saveServiceImpl.save(saveDto);
+        System.out.println(value);
+        return "display";
 
 
 
 
-        model.addAttribute("name","Name: "+saveDto.getName());
-        model.addAttribute("email",saveDto.getEmail());
-        model.addAttribute("age",saveDto.getAge());
-        model.addAttribute("phone",saveDto.getNumber());
+//        model.addAttribute("name","Name: "+saveDto.getName());
+//        model.addAttribute("email",saveDto.getEmail());
+//        model.addAttribute("age",saveDto.getAge());
+//        model.addAttribute("phone",saveDto.getNumber());
+//
+//        System.out.println("Details");
+//        System.out.println("Name: "+saveDto.getName());
+//        System.out.println("Email: "+saveDto.getEmail());
+//        System.out.println("Age: "+saveDto.getAge());
+//        System.out.println("Phone Number: "+saveDto.getNumber());
 
-        System.out.println("Details");
-        System.out.println("Name: "+saveDto.getName());
-        System.out.println("Email: "+saveDto.getEmail());
-        System.out.println("Age: "+saveDto.getAge());
-        System.out.println("Phone Number: "+saveDto.getNumber());
-        return "result";
     }
 }

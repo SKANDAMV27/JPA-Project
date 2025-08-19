@@ -2,18 +2,20 @@ package com.xworkz.save.repository;
 
 import com.xworkz.save.entity.SaveEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+@Repository
 public class SaveRepositoryImp implements SaveRepository{
 
 
 
     @Autowired
-    public EntityManagerFactory emf; //= Persistence.createEntityManagerFactory("save");
+    public EntityManagerFactory emf;
 
     @Override
     public String save(SaveEntity saveEntity) {
