@@ -5,7 +5,12 @@ import com.xworkz.skanda_XworkzModule.service.XworkzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -20,20 +25,33 @@ public class XworkzControllerImp {
     }
 
     @RequestMapping("/signUp")
-    public String save(XworkzDTO xworkzDTO){
-        System.out.println(xworkzDTO.getUserName());
-        System.out.println(xworkzDTO.getPhoneNumber());
-        System.out.println(xworkzDTO.getUserEmail());
-        System.out.println(xworkzDTO.getUserAdress());
-        System.out.println(xworkzDTO.getUserPassword());
-        System.out.println(xworkzDTO.getConformPassword());
-        System.out.println(xworkzDTO.getGender());
+    public String save(@Validated XworkzDTO xworkzDTO, BindingResult bindingResult) {
+        System.out.println("Save Validation:");
+        if (bindingResult.hasErrors()) {
+            System.err.println("Ivalid Data");
+            List objectError = bindingResult.getAllErrors();
+            for (Object objectError1 : objectError) {
+                System.out.println(objectError1);
+                return "signUp.jsp";
+            }
+        } else {
+            System.out.println("Data: " + xworkzDTO);
 
+
+//        System.out.println(xworkzDTO.getUserName());
+//        System.out.println(xworkzDTO.getPhoneNumber());
+//        System.out.println(xworkzDTO.getUserEmail());
+//        System.out.println(xworkzDTO.getUserAdress());
+//        System.out.println(xworkzDTO.getUserPassword());
+//        System.out.println(xworkzDTO.getConformPassword());
+//        System.out.println(xworkzDTO.getGender());
+
+            return "signIn.jsp";
+
+        }
         return "signIn.jsp";
 
+
     }
-
-
-
 
 }

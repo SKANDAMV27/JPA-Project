@@ -20,6 +20,8 @@ public class XworkzServiceImp implements XworkzService {
         XworkzEntity xworkz = new XworkzEntity();
         System.out.println("Service Layer");
         System.out.println("service: "+xworkzDTO);
+
+
         xworkzDTO.setUserName(xworkzDTO.getUserName());
         xworkzDTO.setPhoneNumber(xworkzDTO.getPhoneNumber());
         xworkzDTO.setUserEmail(xworkzDTO.getUserEmail());
