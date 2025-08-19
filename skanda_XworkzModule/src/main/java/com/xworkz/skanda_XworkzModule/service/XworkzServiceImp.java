@@ -19,14 +19,14 @@ public class XworkzServiceImp implements XworkzService {
 
         XworkzEntity xworkz = new XworkzEntity();
         System.out.println("Service Layer");
-
+        System.out.println("service: "+xworkzDTO);
         xworkzDTO.setUserName(xworkzDTO.getUserName());
         xworkzDTO.setPhoneNumber(xworkzDTO.getPhoneNumber());
         xworkzDTO.setUserEmail(xworkzDTO.getUserEmail());
         xworkzDTO.setUserAge(xworkzDTO.getUserAge());
         xworkzDTO.setUserPassword(xworkzDTO.getUserPassword());
         xworkzDTO.setUserAdress(xworkzDTO.getUserAdress());
-        xworkzDTO.setUserGender(xworkzDTO.getUserGender());
+        xworkzDTO.setGender(xworkzDTO.getGender());
         xworkzRepositryImp.save(xworkz);
 
 

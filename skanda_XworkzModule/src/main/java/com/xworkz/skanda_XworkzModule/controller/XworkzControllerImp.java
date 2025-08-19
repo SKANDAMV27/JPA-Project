@@ -4,6 +4,7 @@ import com.xworkz.skanda_XworkzModule.dto.XworkzDTO;
 import com.xworkz.skanda_XworkzModule.service.XworkzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -18,10 +19,17 @@ public class XworkzControllerImp {
         System.out.println("X-Workz Controller...");
     }
 
-    @RequestMapping("/signIn")
+    @RequestMapping("/signUp")
     public String save(XworkzDTO xworkzDTO){
-        System.out.println("Data: "+xworkzDTO);
-        return "display";
+        System.out.println(xworkzDTO.getUserName());
+        System.out.println(xworkzDTO.getPhoneNumber());
+        System.out.println(xworkzDTO.getUserEmail());
+        System.out.println(xworkzDTO.getUserAdress());
+        System.out.println(xworkzDTO.getUserPassword());
+        System.out.println(xworkzDTO.getConformPassword());
+        System.out.println(xworkzDTO.getGender());
+
+        return "signIn.jsp";
 
     }
 

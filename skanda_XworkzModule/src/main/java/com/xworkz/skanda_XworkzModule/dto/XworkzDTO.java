@@ -20,6 +20,6 @@ public class XworkzDTO {
 
     private String userAdress;
 
-    private String userGender;
+    private String gender;
 
 }

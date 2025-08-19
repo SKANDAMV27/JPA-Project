@@ -30,8 +30,8 @@
         <!-- Right side buttons -->
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <div class="d-flex">
-            <a href="signIn.jsp" class="btn btn-outline-primary me-2">Sign In</a>
-            <button class="btn btn-primary">Sign Up</button>
+            <a href="signUp.jsp" class="btn btn-outline-primary me-2">Sign Up</a>
+            <a href="signIn.jsp" class="btn btn-primary">Sign In</a>
           </div>
         </div>
       </div>

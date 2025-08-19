@@ -15,10 +15,10 @@ public class XworkzRepositryImp implements XworkzRepositry {
 //    EntityManagerFactory emf =  Persistence.createEntityManagerFactory("X-workZ");
 
     @Autowired
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("X-workZ");
+    private EntityManagerFactory emf ;//= Persistence.createEntityManagerFactory("X-workZ");
 
     @Override
-    public void save(XworkzEntity xworkz) {
+    public boolean save(XworkzEntity xworkz) {
 
         System.out.println("X-WorkZ Repositry");
 
@@ -42,6 +42,6 @@ public class XworkzRepositryImp implements XworkzRepositry {
                 em.close();
             }
         }
-
+return false;
     }
 }

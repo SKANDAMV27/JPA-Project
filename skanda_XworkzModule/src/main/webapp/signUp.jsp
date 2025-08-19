@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <title>Sign In Form</title>
+    <title>Sign Up Form</title>
   </head>
   <body>
     <!-- Navbar -->
@@ -47,21 +47,51 @@
           <div class="card shadow-lg">
             <div class="card-body">
               <h3 class="text-center mb-4">Sign In</h3>
-              <form action="signIn" method="post">
-
-
+              <form action="signUp" method="post">
+                <!-- Name -->
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your name" name="userName" required>
+                </div>
+                <!-- Phone -->
+                <div class="mb-3">
+                  <label class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" placeholder="Enter phone number" name="phoneNumber" required>
+                </div>
                 <!-- Email -->
                 <div class="mb-3">
                   <label class="form-label">Email</label>
                   <input type="email" class="form-control" placeholder="Enter your email" name="userEmail" required>
                 </div>
-
+                <!-- Age -->
+                <div class="mb-3">
+                  <label class="form-label">Age</label>
+                  <input type="number" class="form-control" placeholder="Enter your age" name="userAge" required>
+                </div>
                 <!-- Password -->
                 <div class="mb-3">
                   <label class="form-label">Password</label>
                   <input type="password" class="form-control" placeholder="Enter password" name="userPassword" required>
                 </div>
-
+                <!-- Confirm Password -->
+                <div class="mb-3">
+                  <label class="form-label">Confirm Password</label>
+                  <input type="password" class="form-control" placeholder="Re-enter password" name="conformPassword" required>
+                </div>
+                <!-- Address -->
+                <div class="mb-3">
+                  <label class="form-label">Address</label>
+                  <textarea class="form-control" rows="2" placeholder="Enter your address" name="userAdress" required></textarea>
+                </div>
+                <!-- Gender -->
+                <div class="mb-3">
+                  <label class="form-label">Gender</label>
+                  <div>
+                    <input type="radio" name="gender" value="male"  required> Male
+                    <input type="radio" name="gender" value="female" class="ms-3"> Female
+                    <input type="radio" name="gender" value="other" class="ms-3"> Other
+                  </div>
+                </div>
                 <!-- Submit -->
                 <div class="d-grid">
                   <button type="submit" class="btn btn-success">Submit</button>
