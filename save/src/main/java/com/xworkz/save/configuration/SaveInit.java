@@ -10,7 +10,7 @@ public class SaveInit extends AbstractAnnotationConfigDispatcherServletInitializ
 
     @Override
     protected String[] getServletMappings() {
-        return new String[]{"/save"};
+        return new String[]{"/"};
     }
 
     @Override

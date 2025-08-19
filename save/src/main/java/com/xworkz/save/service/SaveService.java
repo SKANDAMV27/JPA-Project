@@ -1,8 +1,11 @@
 package com.xworkz.save.service;
 
 
+import com.xworkz.save.dto.SaveDto;
+import org.springframework.context.annotation.Bean;
+
 public interface SaveService {
 
 
-     boolean save();
+     String save(SaveDto saveDto);
 }

@@ -13,18 +13,20 @@ public class SaveRepositoryImp implements SaveRepository{
 
 
     @Autowired
-    public EntityManagerFactory emf = Persistence.createEntityManagerFactory("save");
+    public EntityManagerFactory emf; //= Persistence.createEntityManagerFactory("save");
 
     @Override
-    public boolean save(SaveEntity saveEntity) {
+    public String save(SaveEntity saveEntity) {
+
+        System.out.println(saveEntity.getUserName());
 
         System.out.println("Save Repository Implemination");
 
-        EntityManager em = null;
-        EntityTransaction et = null;
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+
         try{
-            emf.createEntityManager();
-            em.getTransaction();
+
             et.begin();
 
             em.persist(saveEntity);
@@ -34,6 +36,7 @@ public class SaveRepositoryImp implements SaveRepository{
         } catch (Exception e) {
             if(et!=null && et.isActive()){
                 et.rollback();
+                return "Not Submitted";
             }
         }finally {
             if(em!=null){
@@ -42,6 +45,6 @@ public class SaveRepositoryImp implements SaveRepository{
 
         }
 
-        return false;
+        return "Submitted";
     }
 }

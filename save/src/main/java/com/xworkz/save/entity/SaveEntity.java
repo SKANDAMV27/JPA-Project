@@ -1,7 +1,10 @@
 package com.xworkz.save.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name="save_table")
 public class SaveEntity {
@@ -16,7 +19,7 @@ public class SaveEntity {
     private String userEmail;
 
     @Column(name="phone_number")
-    private long usreNumber;
+    private String usreNumber;
 
     @Column(name = "age")
     private int userAge;

@@ -1,10 +1,19 @@
 package com.xworkz.save.controller;
 
 
+import com.xworkz.save.dto.SaveDto;
+import com.xworkz.save.service.SaveService;
+import com.xworkz.save.service.SaveServiceImp;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -15,19 +24,38 @@ public class SaveController {
         System.out.println("no  args of Controller...");
     }
 
-    @RequestMapping("/save")
-    public String save(Model model,@RequestParam String name,@RequestParam String email,@RequestParam int age,@RequestParam long number){
+     @Autowired
+     private SaveService saveService;
 
-        model.addAttribute("name","Name: "+name);
-        model.addAttribute("email",email);
-        model.addAttribute("age",age);
-        model.addAttribute("phone",number);
+    @RequestMapping("/save")
+    public String save(Model model, @Valid SaveDto saveDto, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+           List<ObjectError> objectErrorList = bindingResult.getAllErrors();
+           for(ObjectError objectError:objectErrorList){
+               System.err.println(objectError);
+
+           }
+           model.addAttribute("errors",objectErrorList);
+           model.addAttribute("error","Data Is In-Valid");
+            return "save";
+        }
+
+       String name = saveService.save(saveDto);
+
+
+
+
+        model.addAttribute("name","Name: "+saveDto.getName());
+        model.addAttribute("email",saveDto.getEmail());
+        model.addAttribute("age",saveDto.getAge());
+        model.addAttribute("phone",saveDto.getNumber());
 
         System.out.println("Details");
-        System.out.println("Name: "+name);
-        System.out.println("Email: "+email);
-        System.out.println("Age: "+age);
-        System.out.println("Phone Number: "+number);
-        return "result.jsp";
+        System.out.println("Name: "+saveDto.getName());
+        System.out.println("Email: "+saveDto.getEmail());
+        System.out.println("Age: "+saveDto.getAge());
+        System.out.println("Phone Number: "+saveDto.getNumber());
+        return "result";
     }
 }
