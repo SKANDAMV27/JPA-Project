@@ -32,20 +32,19 @@ public class SaveController {
     @RequestMapping("/save")
     public String save(Model model, @Valid SaveDto saveDto, BindingResult bindingResult){
 
-        if(bindingResult.hasErrors()){
-           List<ObjectError> objectErrorList = bindingResult.getAllErrors();
-           for(ObjectError objectError:objectErrorList){
-               System.err.println(objectError);
-
-           }
-           model.addAttribute("errors",objectErrorList);
-           model.addAttribute("error","Data Is In-Valid");
+        if (bindingResult.hasErrors()){
+            List<ObjectError> objectErrorList=bindingResult.getAllErrors();
+            for (ObjectError objectError:objectErrorList){
+                System.out.println(objectError.getDefaultMessage());
+            }
+            model.addAttribute("errors", objectErrorList);
+            model.addAttribute("errorMessage","correct your form");
             return "save";
         }
-
-       String value = saveServiceImpl.save(saveDto);
+        String value = saveServiceImpl.save(saveDto);
         System.out.println(value);
-        return "display";
+        model.addAttribute("success","Success");
+        return "index";
 
 
 

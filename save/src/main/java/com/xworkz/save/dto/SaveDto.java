@@ -16,8 +16,8 @@ public class SaveDto {
     private String name;
 
     @NotNull
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\\\.[A-Za-z]{2,6}$\",\n" +
-            "            message = \"Invalid email format")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$",
+            message = "Invalid email format")
     private String email;
 
     @NotNull
@@ -25,6 +25,6 @@ public class SaveDto {
     @Max(value = 50,message = "Age Should Not Be More Than 50")
     private int age;
     @NotNull
-    @Pattern(regexp = "\"^[6-9]\\\\d{9}$\", message = \"Phone number must start with 6,7,8 or 9 and be 10 digits long")
+    @Pattern(regexp = "^[6-9]\\d{9}$", message = "Phone number must start with 6,7,8 or 9 and be 10 digits long")
     private String number;
 }
