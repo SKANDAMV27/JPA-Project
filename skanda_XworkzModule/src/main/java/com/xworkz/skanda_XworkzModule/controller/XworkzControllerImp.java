@@ -25,33 +25,21 @@ public class XworkzControllerImp {
     }
 
     @RequestMapping("/signUp")
-    public String save(@Validated XworkzDTO xworkzDTO, BindingResult bindingResult) {
-        System.out.println("Save Validation:");
-        if (bindingResult.hasErrors()) {
-            System.err.println("Ivalid Data");
-            List objectError = bindingResult.getAllErrors();
-            for (Object objectError1 : objectError) {
-                System.out.println(objectError1);
-                return "signUp.jsp";
-            }
-        } else {
-            System.out.println("Data: " + xworkzDTO);
+    public String save(XworkzDTO xworkzDTO){
 
+        System.out.println(xworkzDTO.getUserName());
+        System.out.println(xworkzDTO.getPhoneNumber());
+        System.out.println(xworkzDTO.getUserEmail());
+        System.out.println(xworkzDTO.getUserAdress());
+        System.out.println(xworkzDTO.getUserPassword());
+        System.out.println(xworkzDTO.getConformPassword());
+        System.out.println(xworkzDTO.getGender());
 
-//        System.out.println(xworkzDTO.getUserName());
-//        System.out.println(xworkzDTO.getPhoneNumber());
-//        System.out.println(xworkzDTO.getUserEmail());
-//        System.out.println(xworkzDTO.getUserAdress());
-//        System.out.println(xworkzDTO.getUserPassword());
-//        System.out.println(xworkzDTO.getConformPassword());
-//        System.out.println(xworkzDTO.getGender());
-
-            return "signIn.jsp";
-
-        }
         return "signIn.jsp";
 
-
     }
+
+
+
 
 }
