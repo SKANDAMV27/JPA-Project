@@ -7,34 +7,32 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 @Repository
 public class XworkzRepositryImp implements XworkzRepositry {
 
 //    EntityManagerFactory emf =  Persistence.createEntityManagerFactory("X-workZ");
 
-    @Autowired
-    private EntityManagerFactory emf ;//= Persistence.createEntityManagerFactory("X-workZ");
+  @Autowired
+    private EntityManagerFactory entityManagerFactory ;//= Persistence.createEntityManagerFactory("X-workZ");
 
     @Override
-    public boolean save(XworkzEntity xworkz) {
+    public String save(XworkzEntity xworkz) {
+
+        System.out.println(xworkz.getUserName());
 
         System.out.println("X-WorkZ Repositry");
-
-        EntityManager em = null;
-        EntityTransaction et = null;
+        EntityManager em = entityManagerFactory.createEntityManager();
+        EntityTransaction et = em.getTransaction();;
         try{
-
-           em= emf.createEntityManager();
-           et = em.getTransaction();
             et.begin();
 
                 em.persist(xworkz);
 
             et.commit();
+            return "Data has been submitted";
         } catch (Exception e) {
-            if(e!=null && et.isActive()){
+            if(et!=null && et.isActive()){
                 et.rollback();
             }
         }finally {
@@ -42,6 +40,6 @@ public class XworkzRepositryImp implements XworkzRepositry {
                 em.close();
             }
         }
-return false;
+        return "not saved";
     }
 }

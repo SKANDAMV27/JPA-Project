@@ -1,8 +1,9 @@
 package com.xworkz.skanda_XworkzModule.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
-
-
+@Data
 @Entity
 @Table(name="xworkz_table")
 public class XworkzEntity {
@@ -13,8 +14,8 @@ public class XworkzEntity {
     @Column(name="name")
     private String userName;
 
-    @Column(name="phone_number")
-    private long phoneNumber;
+    @Column(name="number")
+    private String phoneNumber;
 
     @Column(name="email")
     private String userEmail;

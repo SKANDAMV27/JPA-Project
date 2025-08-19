@@ -14,8 +14,8 @@ public class XworkzDTO {
     private String userName;
 
     @NotNull
-    @Pattern(regexp = "^9876\\d{6}$", message = "Phone number must start with 9876 and be 10 digits long")
-    private long phoneNumber;
+    @Pattern(regexp = "^[6-9]\\d{9}$", message = "Phone number must start with 6,7,8 or 9 and be 10 digits long")
+    private String phoneNumber;
 
     @NotNull
     @Pattern(
@@ -24,7 +24,7 @@ public class XworkzDTO {
     private String userEmail;
 
     @NotNull
-    @Max(value = 15,message = "Age Should be 15+")
+    @Min(value = 15,message = "Age Should be 15+")
     @Max(value = 50,message = "Age Must be less than 50")
     private int userAge;
     @NotNull

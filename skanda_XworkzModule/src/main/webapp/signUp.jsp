@@ -1,3 +1,5 @@
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
+ <%@ page isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -48,6 +50,11 @@
             <div class="card-body">
               <h3 class="text-center mb-4">Sign In</h3>
               <form action="signUp" method="post">
+
+
+              <c:forEach items="${errors}" var="error">
+                <div class="field-error">${error.defaultMessage}</div>
+              </c:forEach>
                 <!-- Name -->
                 <div class="mb-3">
                   <label class="form-label">Name</label>

@@ -1,7 +1,8 @@
 package com.xworkz.skanda_XworkzModule.service;
 
 import com.xworkz.skanda_XworkzModule.dto.XworkzDTO;
+import org.springframework.validation.BindingResult;
 
 public interface XworkzService {
-    void save(XworkzDTO xworkzDTO);
+    String save(XworkzDTO xworkzDTO);
 }
