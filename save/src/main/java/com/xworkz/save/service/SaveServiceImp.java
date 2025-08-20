@@ -26,7 +26,7 @@ public class SaveServiceImp implements SaveService{
 
         System.out.println("Service Add");
         saveEntity.setUserName(saveDto.getName());
-        saveEntity.setUsreNumber(saveDto.getNumber());
+        saveEntity.setUserNumber(saveDto.getNumber());
         saveEntity.setUserEmail(saveDto.getEmail());
         saveEntity.setUserAge(saveDto.getAge());
 
@@ -35,10 +35,12 @@ public class SaveServiceImp implements SaveService{
 
     @Override
     public List<SaveEntity> getAll() {
-        System.out.println("Get All");
+        System.out.println("Service Get All Method");
 
 
-
-        return saveRepository.getAll();
+//        SaveEntity saveEntity = new SaveEntity();
+            return saveRepository.getAll();
     }
+
+
 }

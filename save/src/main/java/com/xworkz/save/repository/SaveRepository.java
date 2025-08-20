@@ -8,5 +8,6 @@ public interface SaveRepository {
 
     String save(SaveEntity saveEntity);
 
-    List<SaveEntity> getAll();
+     List<SaveEntity> getAll();
+
 }

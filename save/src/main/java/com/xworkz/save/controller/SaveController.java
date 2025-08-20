@@ -2,6 +2,7 @@ package com.xworkz.save.controller;
 
 
 import com.xworkz.save.dto.SaveDto;
+import com.xworkz.save.entity.SaveEntity;
 import com.xworkz.save.service.SaveService;
 import com.xworkz.save.service.SaveServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -62,4 +65,20 @@ public class SaveController {
 
         return "result";
     }
+
+
+    @RequestMapping("/view")
+    public ModelAndView getAllData(ModelAndView modelAndView) {
+        System.out.println("Fetching all data...");
+
+        List<SaveEntity> list = saveServiceImpl.getAll();
+
+        System.out.println("Retrieved list: " + list);
+
+        modelAndView.addObject("entity", list);
+        modelAndView.setViewName("getAll"); // Matches JSP filename
+
+        return modelAndView;
+    }
+
 }

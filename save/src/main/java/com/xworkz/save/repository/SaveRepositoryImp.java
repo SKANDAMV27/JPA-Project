@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.management.Query;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -56,32 +53,40 @@ public class SaveRepositoryImp implements SaveRepository{
 
     @Override
     public List<SaveEntity> getAll() {
-
-        System.out.println(".....Get All Data....");
+        System.out.println("Get All The Data.");
 
         List<SaveEntity> list = new ArrayList<>();
-
-        EntityManager entityManager =  emf.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
+        EntityManager em = null;
+        EntityTransaction et = null;
 
         try {
+            em = emf.createEntityManager();
+            et = em.getTransaction();
+            et.begin();
 
-            entityTransaction.begin();
+            // TypedQuery is preferred for type safety
+            TypedQuery<SaveEntity> query = em.createNamedQuery("getAll", SaveEntity.class);
 
-            Query query = (Query) entityManager.createNamedQuery("getAll");
+            list = query.getResultList();
 
-
-
-
-
-            entityTransaction.commit();
-
-
-
-
+            et.commit();
         } catch (Exception e) {
-
+            if (et != null && et.isActive()) {
+                et.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
         }
-        return ;
+
+        return list;
     }
+
+
 }
+
+
+
+

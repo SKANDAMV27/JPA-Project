@@ -13,4 +13,5 @@ public interface SaveService {
      String save(SaveDto saveDto);
 
      List<SaveEntity> getAll();
+
 }
