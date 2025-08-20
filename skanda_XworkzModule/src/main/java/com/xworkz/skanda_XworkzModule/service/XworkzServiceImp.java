@@ -15,8 +15,11 @@ import java.util.List;
 public class XworkzServiceImp implements XworkzService {
 
 
+
     @Autowired
     private XworkzRepositry xworkzRepositryImp;
+
+
 
 
     @Override
@@ -51,4 +54,11 @@ public class XworkzServiceImp implements XworkzService {
 
 
     }
+
+    @Override
+    public boolean signInValidation(String name, String email) {
+        System.out.println("...SignIn Validation...");
+        return xworkzRepositryImp.signInValidation(name, email);
+    }
+
 }

@@ -14,8 +14,8 @@ public class XworkzRepositryImp implements XworkzRepositry {
 
 //    EntityManagerFactory emf =  Persistence.createEntityManagerFactory("X-workZ");
 
-  @Autowired
-    private EntityManagerFactory entityManagerFactory ;//= Persistence.createEntityManagerFactory("X-workZ");
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;//= Persistence.createEntityManagerFactory("X-workZ");
 
     @Override
     public String save(XworkzEntity xworkz) {
@@ -24,19 +24,20 @@ public class XworkzRepositryImp implements XworkzRepositry {
 
         System.out.println("X-WorkZ Repositry");
         EntityManager em = entityManagerFactory.createEntityManager();
-        EntityTransaction et = em.getTransaction();;
-        try{
+        EntityTransaction et = em.getTransaction();
+        ;
+        try {
             et.begin();
 
-                em.persist(xworkz);
+            em.persist(xworkz);
 
             et.commit();
             return "Data has been submitted";
         } catch (Exception e) {
-            if(et!=null && et.isActive()){
+            if (et != null && et.isActive()) {
                 et.rollback();
             }
-        }finally {
+        } finally {
             if (em != null) {
                 em.close();
             }
@@ -45,25 +46,20 @@ public class XworkzRepositryImp implements XworkzRepositry {
     }
 
     @Override
-    public String signInValidation(String name,String email) {
+    public boolean signInValidation(String name, String email) {
         EntityManager manager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = manager.getTransaction();
-
         try {
-          Query query = manager.createNamedQuery("signInValidation");
-          query.setParameter("email",email);
-          query.setParameter("name",name);
-          query.getSingleResult();
-          return "SignIn Success";
+            Query query = manager.createNamedQuery("signInValidation");
+            query.setParameter("email", email);
+            query.setParameter("name", name);
+
+            Object result = query.getSingleResult();
+            return result != null;   // ✅ true if found
         } catch (Exception e) {
-            transaction.getRollbackOnly();
-        }
-        finally {
+            e.printStackTrace();
+            return false;
+        } finally {
             manager.close();
         }
-
-        return "SignIn UnSuccess";
-
-
     }
 }

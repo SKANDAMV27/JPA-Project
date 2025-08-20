@@ -5,5 +5,5 @@ import com.xworkz.skanda_XworkzModule.entity.XworkzEntity;
 public interface XworkzRepositry {
     String save(XworkzEntity xworkz);
 
-    String signInValidation(String name,String email);
+    boolean signInValidation(String name,String email);
 }
