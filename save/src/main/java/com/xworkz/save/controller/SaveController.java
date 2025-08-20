@@ -44,21 +44,22 @@ public class SaveController {
         String value = saveServiceImpl.save(saveDto);
         System.out.println(value);
         model.addAttribute("success","Success");
-        return "index";
 
 
 
 
-//        model.addAttribute("name","Name: "+saveDto.getName());
-//        model.addAttribute("email",saveDto.getEmail());
-//        model.addAttribute("age",saveDto.getAge());
-//        model.addAttribute("phone",saveDto.getNumber());
-//
-//        System.out.println("Details");
-//        System.out.println("Name: "+saveDto.getName());
-//        System.out.println("Email: "+saveDto.getEmail());
-//        System.out.println("Age: "+saveDto.getAge());
-//        System.out.println("Phone Number: "+saveDto.getNumber());
 
+        model.addAttribute("name","Name: "+saveDto.getName());
+        model.addAttribute("email",saveDto.getEmail());
+        model.addAttribute("age",saveDto.getAge());
+        model.addAttribute("phone",saveDto.getNumber());
+
+        System.out.println("Details");
+        System.out.println("Name: "+saveDto.getName());
+        System.out.println("Email: "+saveDto.getEmail());
+        System.out.println("Age: "+saveDto.getAge());
+        System.out.println("Phone Number: "+saveDto.getNumber());
+
+        return "result";
     }
 }
