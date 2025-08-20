@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
@@ -24,26 +25,55 @@ public class XworkzController {
         System.out.println("X-Workz Controller...");
     }
 
-    @RequestMapping("/signUp")
-    public String save(@Valid  XworkzDTO xworkzDTO , BindingResult result, Model model){
+//    @RequestMapping("/signUp")
+//    public String save(@Valid  XworkzDTO xworkzDTO , BindingResult result, Model model){
 
-        if (result.hasErrors()){
-            List<ObjectError> objectErrorList=result.getAllErrors();
-            for (ObjectError objectError:objectErrorList){
-                System.out.println(objectError.getDefaultMessage());
-            }
-            model.addAttribute("errors",objectErrorList);
-            model.addAttribute("errorMessage","correct your form");
-            return "signUp";
+//        if (result.hasErrors()){
+//            List<ObjectError> objectErrorList=result.getAllErrors();
+//            for (ObjectError objectError:objectErrorList){
+//                System.out.println(objectError.getDefaultMessage());
+//            }
+//            model.addAttribute("errors",objectErrorList);
+//            model.addAttribute("errorMessage","correct your form");
+//            return "signUp";
+//        }
+//        String value = xworkzServiceImp.save(xworkzDTO);
+//        System.out.println(value);
+//        model.addAttribute("success","Success");
+//        return "sigIn";
+@RequestMapping("/signUp")
+public String save(@Valid XworkzDTO xworkzDTO,
+                   BindingResult result,
+                   Model model) {
+
+    // Backend validation errors
+    if (result.hasErrors()) {
+        List<ObjectError> objectErrorList = result.getAllErrors();
+        for (ObjectError error : objectErrorList) {
+            System.out.println(error.getDefaultMessage());
         }
-        String value = xworkzServiceImp.save(xworkzDTO);
-        System.out.println(value);
-        model.addAttribute("success","Success");
-        return "sigIn";
+        model.addAttribute("errors", objectErrorList);
+        model.addAttribute("errorMessage", "Correct your form details");
+        return "signUp"; // return back to form
+    }
+
+    // ✅ Check confirm password
+    if (!xworkzDTO.getUserPassword().equals(xworkzDTO.getConformPassword())) {
+        model.addAttribute("errorMessage", "Passwords do not match");
+        return "signUp";
+    }
+
+    // ✅ Save to DB
+    String value = xworkzServiceImp.save(xworkzDTO);
+    System.out.println("Saved -> " + value);
+
+    model.addAttribute("success", "Registration successful!");
+    return "signIn"; // redirect to signIn.jsp
+}
 
     }
 
 
 
 
-}
+

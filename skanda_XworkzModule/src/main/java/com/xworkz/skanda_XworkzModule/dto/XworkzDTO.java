@@ -10,7 +10,7 @@ import javax.validation.constraints.*;
 @Data
 public class XworkzDTO {
     @NotNull
-    @Size(min=3 , max=10,message = "Name Must be Min 3 and Max 10")
+    @Size(min=3 , max=20,message = "Name Must be Min 3 and Max 20")
     private String userName;
 
     @NotNull
