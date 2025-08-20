@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name="save_table")
+@NamedQuery(name = "getAll",query = "Select entity from save_table where entity")
 public class SaveEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

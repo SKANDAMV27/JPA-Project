@@ -6,6 +6,9 @@ import com.xworkz.save.repository.SaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class SaveServiceImp implements SaveService{
     public SaveServiceImp() {
@@ -28,5 +31,14 @@ public class SaveServiceImp implements SaveService{
         saveEntity.setUserAge(saveDto.getAge());
 
         return saveRepository.save(saveEntity);
+    }
+
+    @Override
+    public List<SaveEntity> getAll() {
+        System.out.println("Get All");
+
+
+
+        return saveRepository.getAll();
     }
 }

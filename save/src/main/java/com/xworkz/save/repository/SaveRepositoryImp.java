@@ -4,10 +4,14 @@ import com.xworkz.save.entity.SaveEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Repository
 public class SaveRepositoryImp implements SaveRepository{
@@ -48,5 +52,36 @@ public class SaveRepositoryImp implements SaveRepository{
         }
 
         return "Submitted";
+    }
+
+    @Override
+    public List<SaveEntity> getAll() {
+
+        System.out.println(".....Get All Data....");
+
+        List<SaveEntity> list = new ArrayList<>();
+
+        EntityManager entityManager =  emf.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        try {
+
+            entityTransaction.begin();
+
+            Query query = (Query) entityManager.createNamedQuery("getAll");
+
+
+
+
+
+            entityTransaction.commit();
+
+
+
+
+        } catch (Exception e) {
+
+        }
+        return ;
     }
 }
