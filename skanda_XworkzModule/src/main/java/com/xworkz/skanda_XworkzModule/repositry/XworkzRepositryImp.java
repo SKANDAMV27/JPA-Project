@@ -2,6 +2,7 @@ package com.xworkz.skanda_XworkzModule.repositry;
 
 import com.xworkz.skanda_XworkzModule.entity.XworkzEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -28,7 +29,9 @@ public class XworkzRepositryImp implements XworkzRepositry {
         ;
         try {
             et.begin();
-
+            BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder();
+            String password= encoder.encode(xworkz.getUserPassword());
+            xworkz.setUserPassword(password);
             em.persist(xworkz);
 
             et.commit();
