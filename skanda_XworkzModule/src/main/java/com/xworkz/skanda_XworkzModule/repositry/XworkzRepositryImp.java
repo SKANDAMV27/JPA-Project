@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.*;
 
 @Repository
 public class XworkzRepositryImp implements XworkzRepositry {
@@ -52,22 +49,27 @@ public class XworkzRepositryImp implements XworkzRepositry {
     public boolean signInValidation(String password, String email) {
         EntityManager manager = entityManagerFactory.createEntityManager();
         System.out.println("Xworkz Repo...");
+
         try {
+            Query query = manager.createQuery(
+                    "SELECT e.userPassword FROM XworkzEntity e WHERE e.userEmail = :email"
+            );
+            query.setParameter("email", email);
 
-           Query query = manager.createQuery("signInValidation");
-            String entity = (String) query.getSingleResult();
+            String dbPassword = (String) query.getSingleResult(); // Hashed password
 
-            if(entity!=null){
-                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-                return bCryptPasswordEncoder.matches(password, entity);
+            if (dbPassword != null) {
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                return encoder.matches(password, dbPassword); // Compare plain vs hashed
             }
 
         } catch (Exception e) {
+            System.out.println("Error during signInValidation: " + e.getMessage());
             return false;
-
         } finally {
             manager.close();
         }
-        return true;
+        return false;
     }
+
 }

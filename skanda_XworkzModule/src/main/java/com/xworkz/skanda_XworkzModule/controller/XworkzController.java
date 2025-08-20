@@ -1,5 +1,6 @@
 package com.xworkz.skanda_XworkzModule.controller;
 
+import com.xworkz.skanda_XworkzModule.dto.SignInDTO;
 import com.xworkz.skanda_XworkzModule.dto.XworkzDTO;
 import com.xworkz.skanda_XworkzModule.service.XworkzService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,24 +69,30 @@ public class XworkzController {
         System.out.println("Saved -> " + value);
 
         model.addAttribute("success", "Registration successful!");
-        return "signIn"; // redirect to signIn.jsp
+        return "signIn";
     }
 
     @RequestMapping("/signIn")
-    public String signInValidation(@RequestParam("userEmail") String userEmail,
-                                         @RequestParam("userPassword") String userPassword,
-                                         ModelAndView modelAndView)
+    public String signInValidation(@Valid SignInDTO xworkzDTO, ModelAndView modelAndView)
 
     {
         System.out.println("X-Workz Controller");
-        if (xworkzServiceImp.signInValidation(userPassword, userEmail)) {
+        if (xworkzServiceImp.signInValidation(xworkzDTO.getUserPassword(), xworkzDTO.getUserEmail())) {
             modelAndView.setViewName("Welcome");
             modelAndView.addObject("message", "SignIn Successfully");
-        } else {
+            System.out.println("Success");
+            System.out.println(xworkzDTO.getUserPassword());
+            System.out.println(xworkzDTO.getUserEmail());
+            return "xworkz";
+        }
+
+        else
             modelAndView.setViewName("signIn");
             modelAndView.addObject("error", "Invalid credentials! Please try again.");
-        }
-        return "index.jsp";
+            System.out.println(xworkzDTO.getUserEmail());
+            System.out.println(xworkzDTO.getUserPassword());
+            System.out.println("Invalid Details");
+            return "signIn";
     }
 }
 

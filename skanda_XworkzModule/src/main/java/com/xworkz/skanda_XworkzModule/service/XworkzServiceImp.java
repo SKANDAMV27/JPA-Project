@@ -59,7 +59,5 @@ public class XworkzServiceImp implements XworkzService {
     public boolean signInValidation(String password, String email) {
         System.out.println("...SignIn Validation...");
         return xworkzRepositryImp.signInValidation(password, email);
-
     }
-
 }
