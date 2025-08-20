@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 @Repository
 public class XworkzRepositryImp implements XworkzRepositry {
@@ -41,5 +42,28 @@ public class XworkzRepositryImp implements XworkzRepositry {
             }
         }
         return "not saved";
+    }
+
+    @Override
+    public String signInValidation(String name,String email) {
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = manager.getTransaction();
+
+        try {
+          Query query = manager.createNamedQuery("signInValidation");
+          query.setParameter("email",email);
+          query.setParameter("name",name);
+          query.getSingleResult();
+          return "SignIn Success";
+        } catch (Exception e) {
+            transaction.getRollbackOnly();
+        }
+        finally {
+            manager.close();
+        }
+
+        return "SignIn UnSuccess";
+
+
     }
 }

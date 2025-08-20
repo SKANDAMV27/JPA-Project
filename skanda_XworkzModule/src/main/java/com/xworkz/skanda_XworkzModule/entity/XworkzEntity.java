@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name="xworkz_table")
+@NamedQuery(name = "signInValidation",query = "Select entity from XworkzEntity entity where entity.email = : email and entity.name =:name")
 public class XworkzEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
