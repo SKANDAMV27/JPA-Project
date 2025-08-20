@@ -73,10 +73,12 @@ public class XworkzController {
 
     @RequestMapping("/signIn")
     public String signInValidation(@RequestParam("userEmail") String userEmail,
-                                         @RequestParam("userName") String userName,
-                                         ModelAndView modelAndView) {
+                                         @RequestParam("userPassword") String userPassword,
+                                         ModelAndView modelAndView)
 
-        if (xworkzServiceImp.signInValidation(userName, userEmail)) {
+    {
+        System.out.println("X-Workz Controller");
+        if (xworkzServiceImp.signInValidation(userPassword, userEmail)) {
             modelAndView.setViewName("Welcome");
             modelAndView.addObject("message", "SignIn Successfully");
         } else {

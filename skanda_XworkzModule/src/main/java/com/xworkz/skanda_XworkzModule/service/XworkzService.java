@@ -6,5 +6,5 @@ import org.springframework.validation.BindingResult;
 public interface XworkzService {
     String save(XworkzDTO xworkzDTO);
 
-    boolean signInValidation(String name,String email);
+    boolean signInValidation(String password,String email);
 }

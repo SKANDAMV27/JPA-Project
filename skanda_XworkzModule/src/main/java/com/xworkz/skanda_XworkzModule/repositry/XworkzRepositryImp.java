@@ -29,9 +29,9 @@ public class XworkzRepositryImp implements XworkzRepositry {
         ;
         try {
             et.begin();
-            BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder();
-            String password= encoder.encode(xworkz.getUserPassword());
-            xworkz.setUserPassword(password);
+            BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder();   //First Create an Object
+            String password= encoder.encode(xworkz.getUserPassword());      // Take a Plain text Entered By the user and convert to hash password having 60+ characture String.
+            xworkz.setUserPassword(password);   //Replace the Plaintext Password to hashed password with 60+ characture String.
             em.persist(xworkz);
 
             et.commit();
@@ -49,20 +49,25 @@ public class XworkzRepositryImp implements XworkzRepositry {
     }
 
     @Override
-    public boolean signInValidation(String name, String email) {
+    public boolean signInValidation(String password, String email) {
         EntityManager manager = entityManagerFactory.createEntityManager();
+        System.out.println("Xworkz Repo...");
         try {
-            Query query = manager.createNamedQuery("signInValidation");
-            query.setParameter("email", email);
-            query.setParameter("name", name);
 
-            Object result = query.getSingleResult();
-            return result != null;   // ✅ true if found
+           Query query = manager.createQuery("signInValidation");
+            String entity = (String) query.getSingleResult();
+
+            if(entity!=null){
+                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+                return bCryptPasswordEncoder.matches(password, entity);
+            }
+
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
+
         } finally {
             manager.close();
         }
+        return true;
     }
 }
