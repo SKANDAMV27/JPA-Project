@@ -60,7 +60,8 @@ public class XworkzController {
 
         //  Check confirm password
         if (!xworkzDTO.getUserPassword().equals(xworkzDTO.getConformPassword())) {
-            model.addAttribute("errorMessage", "Passwords do not match");
+            model.addAttribute("password", "Passwords do not match");
+            System.out.println("Password Don't Match ");
             return "signUp";
         }
 
@@ -73,13 +74,18 @@ public class XworkzController {
     }
 
     @RequestMapping("/signIn")
-    public String signInValidation(@Valid SignInDTO xworkzDTO, ModelAndView modelAndView)
+    public String signInValidation(@Valid SignInDTO xworkzDTO, ModelAndView modelAndView,Model model,BindingResult bindingResult)
+
 
     {
+
         System.out.println("X-Workz Controller");
         if (xworkzServiceImp.signInValidation(xworkzDTO.getUserPassword(), xworkzDTO.getUserEmail())) {
             modelAndView.setViewName("Welcome");
             modelAndView.addObject("message", "SignIn Successfully");
+
+            model.addAttribute("message","SignIn Successfully");
+
             System.out.println("Success");
             System.out.println(xworkzDTO.getUserPassword());
             System.out.println(xworkzDTO.getUserEmail());
@@ -89,6 +95,7 @@ public class XworkzController {
         else
             modelAndView.setViewName("signIn");
             modelAndView.addObject("error", "Invalid credentials! Please try again.");
+            model.addAttribute("error","Invalid credentials! Please try again.");
             System.out.println(xworkzDTO.getUserEmail());
             System.out.println(xworkzDTO.getUserPassword());
             System.out.println("Invalid Details");

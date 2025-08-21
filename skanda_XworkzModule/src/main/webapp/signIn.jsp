@@ -51,9 +51,13 @@
               <h3 class="text-center mb-4">Sign In</h3>
               <form action="signIn" method="post">
 
-                <c:forEach items="${error}" var="error">
+                <c:forEach items="${message}" var="error">
                                 <div class="field-error">${error.defaultMessage}</div>
                               </c:forEach>
+
+                              <h3>${success}</h3>
+
+                              <h2>${error}</h2>
 
                 <!-- Email -->
                 <div class="mb-3">

@@ -55,6 +55,9 @@
               <c:forEach items="${errors}" var="error">
                 <div class="field-error">${error.defaultMessage}</div>
               </c:forEach>
+               <h1>${errorMessage}</h1>
+              <h1>${success}</h1>
+              <h3>${password}</h3>
                 <!-- Name -->
                 <div class="mb-3">
                   <label class="form-label">Name</label>
