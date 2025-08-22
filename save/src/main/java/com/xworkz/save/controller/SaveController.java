@@ -42,6 +42,7 @@ public class SaveController {
             }
             model.addAttribute("errors", objectErrorList);
             model.addAttribute("errorMessage","correct your form");
+            System.out.println(objectErrorList);
             return "save";
         }
         String value = saveServiceImpl.save(saveDto);
@@ -68,7 +69,7 @@ public class SaveController {
 
 
     @RequestMapping("/view")
-    public ModelAndView getAllData(ModelAndView modelAndView) {
+    public ModelAndView getAllData(ModelAndView modelAndView,Model model) {
         System.out.println("Fetching all data...");
 
         List<SaveEntity> list = saveServiceImpl.getAll();
@@ -76,9 +77,16 @@ public class SaveController {
         System.out.println("Retrieved list: " + list);
 
         modelAndView.addObject("entity", list);
-        modelAndView.setViewName("getAll"); // Matches JSP filename
+        modelAndView.setViewName("view"); // matches JSP filename
+
+//        model.addAttribute("name","list"+list);
+
+
+
 
         return modelAndView;
     }
+
+
 
 }

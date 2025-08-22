@@ -23,7 +23,6 @@
 <div class="container mt-4">
     <h1 class="mb-4 text-center">Get All Data from Db</h1>
 
-    <p class="text-center">Total Records: ${fn:length(entity)}</p>
 
     <table class="table table-bordered table-hover table-striped text-center align-middle">
         <thead class="table-danger">

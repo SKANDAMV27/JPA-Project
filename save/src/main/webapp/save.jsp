@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,10 +18,10 @@
 
       <form action="save" method="post">
 
-      <c:forEach items="${errors}" var="error">
+    <!  <c:forEach items="${errors}" var="error">
                       <div class="field-error">${error.defaultMessage}</div>
                     </c:forEach>
-
+        <h2>${errorMessage}</h2>  !>
         <div class="mb-3">
           <label for="nameId" class="form-label">Name</label>
           <input type="text" class="form-control" id="nameId" name="name" required>

@@ -1,5 +1,6 @@
 package com.xworkz.skanda_XworkzModule.controller;
 
+import com.xworkz.skanda_XworkzModule.dto.EmailDTO;
 import com.xworkz.skanda_XworkzModule.dto.SignInDTO;
 import com.xworkz.skanda_XworkzModule.dto.XworkzDTO;
 import com.xworkz.skanda_XworkzModule.service.XworkzService;
@@ -101,6 +102,18 @@ public class XworkzController {
             System.out.println("Invalid Details");
             return "signIn";
     }
+
+        @RequestMapping("/forgotPassword")
+        public String sendOTP(@Valid EmailDTO emailDTO,BindingResult bindingResult,Model model){
+            System.out.println("OPT Sent Controller Method");
+        if(bindingResult.hasErrors()){
+            System.out.println("Send OTP Method In Side if Else");
+            return "forgotPassword";
+        }
+
+            System.out.println("..OPT Send Out Side The if Condition..");
+        return "forgotPassword";
+        }
 }
 
 

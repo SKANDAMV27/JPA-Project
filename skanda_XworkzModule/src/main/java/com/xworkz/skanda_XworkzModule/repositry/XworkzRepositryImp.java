@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Repository
 public class XworkzRepositryImp implements XworkzRepositry {
@@ -72,4 +73,39 @@ public class XworkzRepositryImp implements XworkzRepositry {
         return false;
     }
 
+    @Override
+    public boolean checKEmail(String email) {
+        System.out.println("Check if the Email is present in Data Base" + email);
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try {
+
+            Query query = entityManager.createNamedQuery("emailOPT");
+            query.setParameter("email", email);
+            Long count = (Long) query.getSingleResult();
+
+
+            return count > 0;
+
+        } catch (Exception e) {
+            return false;
+        }finally {
+            entityManager.close();
+        }
+
+
+    }
+//
+//    @Override
+//    public boolean otpSend(String email) {
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//        try{
+//            Query query = entityManager.createNamedQuery("otpSend");
+//            query.setParameter("email",email);
+//            XworkzEntity xworkz = (XworkzEntity) query.getSingleResult();
+//            return
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//        return false;
+//    }
 }

@@ -1,9 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"  %>
- <%@ page isELIgnored="false" %>
+<%@ page isELIgnored="false" %>
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -27,8 +26,8 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
           <div class="d-flex">
-            <button class="btn btn-outline-primary me-2">Sign In</button>
-            <button class="btn btn-primary">Sign Up</button>
+            <a href="signIn.jsp" class="btn btn-outline-primary me-2">Sign In</a>
+            <a href="signUp.jsp" class="btn btn-primary">Sign Up</a>
           </div>
         </div>
       </div>
@@ -42,22 +41,23 @@
       </div>
     </section>
 
-    <!-- Sign Up Form -->
+    <!-- Sign In Form -->
     <section class="container my-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <div class="card shadow-lg">
             <div class="card-body">
               <h3 class="text-center mb-4">Sign In</h3>
+
+              <!-- Display Messages -->
+              <c:forEach items="${message}" var="msg">
+                <div class="alert alert-success">${msg}</div>
+              </c:forEach>
+              <c:if test="${not empty error}">
+                <div class="alert alert-danger">${error}</div>
+              </c:if>
+
               <form action="signIn" method="post">
-
-                <c:forEach items="${message}" var="error">
-                                <div class="field-error">${error.defaultMessage}</div>
-                              </c:forEach>
-
-                              <h3>${success}</h3>
-
-                              <h2>${error}</h2>
 
                 <!-- Email -->
                 <div class="mb-3">
@@ -69,11 +69,14 @@
                 <div class="mb-3">
                   <label class="form-label">Password</label>
                   <input type="password" class="form-control" placeholder="Enter password" name="userPassword" required>
+                  <div class="mt-2 text-end">
+                    <a href="forgotPassword.jsp" class="text-decoration-none">Forgot Password?</a>
+                  </div>
                 </div>
 
                 <!-- Submit -->
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-success">Submit</button>
+                  <button type="submit" class="btn btn-success">Sign In</button>
                 </div>
               </form>
             </div>
