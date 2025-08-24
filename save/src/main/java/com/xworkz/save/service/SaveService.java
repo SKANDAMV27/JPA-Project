@@ -16,4 +16,6 @@ public interface SaveService {
 
      String delete(SaveDto saveDto);
 
+     boolean checkEmailAndNumber(String email, String number);
+
 }

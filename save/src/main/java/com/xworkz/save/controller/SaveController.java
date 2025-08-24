@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -33,38 +33,62 @@ public class SaveController {
 
 
     @RequestMapping("/save")
-    public String save(Model model, @Valid SaveDto saveDto, BindingResult bindingResult){
+    public String save(Model model, @Valid SaveDto saveDto, BindingResult bindingResult) {
 
-        if (bindingResult.hasErrors()){
-            List<ObjectError> objectErrorList=bindingResult.getAllErrors();
-            for (ObjectError objectError:objectErrorList){
+        //  form validation errors
+        if (bindingResult.hasErrors()) {
+            List<ObjectError> objectErrorList = bindingResult.getAllErrors();
+            for (ObjectError objectError : objectErrorList) {
                 System.out.println(objectError.getDefaultMessage());
             }
             model.addAttribute("errors", objectErrorList);
-            model.addAttribute("errorMessage","correct your form");
-            System.out.println(objectErrorList);
-
-
-            return "save";
+            model.addAttribute("errorMessage", "Correct your form");
+            return "save"; // back to form page
         }
 
+        // email is already in the db
+        boolean exists = saveServiceImpl.checkEmailAndNumber(saveDto.getEmail(), saveDto.getNumber());
+        if (exists) {
+            model.addAttribute("errorMessage", "Email or Phone Number already exists ❌");
+            return "save"; // back to form page
+        }
+
+        // Step 3: Save data if valid and unique
         String value = saveServiceImpl.save(saveDto);
         System.out.println(value);
-        model.addAttribute("success","Success");
 
-        model.addAttribute("name","Name: "+saveDto.getName());
-        model.addAttribute("email",saveDto.getEmail());
-        model.addAttribute("age",saveDto.getAge());
-        model.addAttribute("phone",saveDto.getNumber());
+        model.addAttribute("success", "Success ✅");
+
+        model.addAttribute("name", "Name: " + saveDto.getName());
+        model.addAttribute("email", saveDto.getEmail());
+        model.addAttribute("age", saveDto.getAge());
+        model.addAttribute("phone", saveDto.getNumber());
 
         System.out.println("Details");
-        System.out.println("Name: "+saveDto.getName());
-        System.out.println("Email: "+saveDto.getEmail());
-        System.out.println("Age: "+saveDto.getAge());
-        System.out.println("Phone Number: "+saveDto.getNumber());
+        System.out.println("Name: " + saveDto.getName());
+        System.out.println("Email: " + saveDto.getEmail());
+        System.out.println("Age: " + saveDto.getAge());
+        System.out.println("Phone Number: " + saveDto.getNumber());
 
-        return "result";
+        return "result"; // success page
     }
+
+//    @RequestMapping("/save")
+//    public String checkEmailAndNumber(String email,String number,Model model){
+//        System.out.println("Check Email and Number is is already in the DB");
+//
+//        boolean check = saveServiceImpl.checkEmailAndNumber(email,number);
+//        if(check){
+//            System.out.println("It Already Exist");
+//            model.addAttribute("name","Already in the DB");
+//            return "save";
+//        }
+//            System.out.println("It is not Already in DB");
+//            model.addAttribute("email","Already not in the DB");
+//
+//
+//        return "result";
+//    }
 
 
     @RequestMapping("/view")
@@ -99,6 +123,8 @@ public class SaveController {
 
         return "resultDelete";
     }
+
+
 
 
 

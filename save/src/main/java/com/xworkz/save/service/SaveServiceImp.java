@@ -6,7 +6,6 @@ import com.xworkz.save.repository.SaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -55,9 +54,21 @@ public class SaveServiceImp implements SaveService{
         return saveRepository.remove(saveEntity);
     }
 
+    @Override
+    public boolean checkEmailAndNumber(String email, String number) {
 
+        System.out.println("Check The Email And Number Is already in DB are not");
 
+        boolean exist = saveRepository.checkEmailAndNumber(email,number);
 
+        if(exist){
+            System.out.println("Save");
+        }else{
+            System.out.println("Email and Number are already in DB");
+        }
+
+        return exist;
+    }
 
 
 }

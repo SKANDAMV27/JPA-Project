@@ -18,6 +18,34 @@ public class SaveRepositoryImp implements SaveRepository {
         System.out.println("Save Repository initialized");
     }
 
+    //This is to Check If Email And Phone is already Is in db are not
+    @Override
+    public boolean checkEmailAndNumber(String email, String number) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
+        try{
+            Query query = em.createNamedQuery("checkEmailAndNumber");
+            query.setParameter("userEmail",email);
+            query.setParameter("userNumber",number);
+
+//            /String check = query.getSingleResult().toString();
+
+            Long count = (Long) query.getSingleResult();
+            return count>0;
+
+        } catch (Exception e) {
+            if(et!=null && et.isActive()){
+                et.rollback();
+            }
+        }
+        finally {
+            em.close();
+
+        }
+        return false;
+
+    }
+
     // Save a record
     @Override
     public String save(SaveEntity saveEntity) {
@@ -83,19 +111,5 @@ public class SaveRepositoryImp implements SaveRepository {
         }
     }
 
-    @Override
-    public String checkEmailAndNumber(String email, String age) {
-        EntityManager em = emf.createEntityManager();
-        try{
-            Query query = em.createNamedQuery("checkEmailAndNumber");
-            query.setParameter("email",email);
-            query.setParameter("number",)
 
-        } catch (Exception e) {
-
-        }finally {
-
-        }
-        return "";
-    }
 }
