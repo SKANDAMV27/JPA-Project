@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "save_table")
 @NamedQuery(name = "getAll", query = "SELECT entity FROM SaveEntity entity")
+@NamedQuery(name="remove",query = "Delete entity From SaveEntity entity.id:id and entity.userName:userName")
 public class SaveEntity {
 
     @Id

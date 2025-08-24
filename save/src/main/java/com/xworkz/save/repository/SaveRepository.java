@@ -10,4 +10,6 @@ public interface SaveRepository {
 
      List<SaveEntity> getAll();
 
+     String remove(SaveEntity saveEntity);
+
 }
