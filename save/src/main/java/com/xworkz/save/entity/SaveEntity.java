@@ -15,7 +15,8 @@ import javax.persistence.*;
         @NamedQuery(
                 name = "removeByUserName",
                 query = "DELETE FROM SaveEntity e WHERE e.userName = :userName"
-        )
+        ),
+        @NamedQuery(name="check",query = "Select count Entity from SaveEntity Entity.userEmail=:email or Entity. ")
 })
 public class SaveEntity {
 

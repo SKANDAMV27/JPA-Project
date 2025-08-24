@@ -43,15 +43,14 @@ public class SaveController {
             model.addAttribute("errors", objectErrorList);
             model.addAttribute("errorMessage","correct your form");
             System.out.println(objectErrorList);
+
+
             return "save";
         }
+
         String value = saveServiceImpl.save(saveDto);
         System.out.println(value);
         model.addAttribute("success","Success");
-
-
-
-
 
         model.addAttribute("name","Name: "+saveDto.getName());
         model.addAttribute("email",saveDto.getEmail());
@@ -92,7 +91,6 @@ public class SaveController {
         System.out.println("Delete Controller");
         model.addAttribute("name",saveDto.getName());
         System.out.println(saveDto.getName());
-
         String result = saveServiceImpl.delete(saveDto);
         System.out.println(result);
         model.addAttribute("result",result);
