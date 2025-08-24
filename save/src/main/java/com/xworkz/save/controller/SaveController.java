@@ -49,7 +49,7 @@ public class SaveController {
         // email is already in the db
         boolean exists = saveServiceImpl.checkEmailAndNumber(saveDto.getEmail(), saveDto.getNumber());
         if (exists) {
-            model.addAttribute("errorMessage", "Email or Phone Number already exists ❌");
+            model.addAttribute("errorMessage", "Email or Phone Number already exists ");
             return "save"; // back to form page
         }
 
