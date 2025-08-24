@@ -4,89 +4,82 @@ import com.xworkz.save.entity.SaveEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.management.Query;
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
-public class SaveRepositoryImp implements SaveRepository{
-
-
+public class SaveRepositoryImp implements SaveRepository {
 
     @Autowired
-    public EntityManagerFactory emf;
+    private EntityManagerFactory emf;
 
+    public SaveRepositoryImp() {
+        System.out.println("Save Repository initialized");
+    }
+
+    // Save a record
     @Override
     public String save(SaveEntity saveEntity) {
-
-        System.out.println(saveEntity.getUserName());
-
-        System.out.println("Save Repository Implemination");
-
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
 
-        try{
-
+        try {
             et.begin();
-
             em.persist(saveEntity);
-
             et.commit();
-
+            return "Submitted Successfully";
         } catch (Exception e) {
-            if(et!=null && et.isActive()){
-                et.rollback();
-                return "Not Submitted";
-            }
-        }finally {
-            if(em!=null){
-                em.close();
-            }
-
+            if (et.isActive()) et.rollback();
+            e.printStackTrace();
+            return "Submission Failed";
+        } finally {
+            em.close();
         }
-
-        return "Submitted";
     }
 
+    // Fetch all records
     @Override
     public List<SaveEntity> getAll() {
-        System.out.println("Get All The Data.");
-
+        EntityManager em = emf.createEntityManager();
         List<SaveEntity> list = new ArrayList<>();
-        EntityManager em = null;
-        EntityTransaction et = null;
-
         try {
-            em = emf.createEntityManager();
-            et = em.getTransaction();
-            et.begin();
-
-            // TypedQuery is preferred for type safety
             TypedQuery<SaveEntity> query = em.createNamedQuery("getAll", SaveEntity.class);
-
             list = query.getResultList();
-
-            et.commit();
         } catch (Exception e) {
-            if (et != null && et.isActive()) {
-                et.rollback();
-            }
             e.printStackTrace();
         } finally {
-            if (em != null) {
-                em.close();
-            }
+            em.close();
         }
-
         return list;
     }
 
+    // Delete record by userName
+    @Override
+    public String remove(SaveEntity saveEntity) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction et = em.getTransaction();
 
+        try {
+            et.begin();
+            Query query = em.createNamedQuery("removeByUserName");
+            query.setParameter("userName", saveEntity.getUserName());
+
+            int rowsDeleted = query.executeUpdate();
+            et.commit();
+
+            if (rowsDeleted > 0) {
+                return "Deleted Successfully";
+            } else {
+                return "No record found with this name";
+            }
+
+        } catch (Exception e) {
+            if (et.isActive()) et.rollback();
+            e.printStackTrace();
+            return "Error while deleting";
+        } finally {
+            em.close();
+        }
+    }
 }
-
-
-
-

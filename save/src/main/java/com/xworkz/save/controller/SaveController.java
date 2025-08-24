@@ -27,7 +27,7 @@ public class SaveController {
 
     public SaveController()
     {
-        System.out.println("no  args of Controller...");
+        System.out.println("no  args of Controller..☺.");
     }
 
 
@@ -85,6 +85,21 @@ public class SaveController {
 
 
         return modelAndView;
+    }
+
+    @RequestMapping("/delete")
+    public String delete(SaveDto saveDto,Model model){
+        System.out.println("Delete Controller");
+        model.addAttribute("name",saveDto.getName());
+        System.out.println(saveDto.getName());
+
+        String result = saveServiceImpl.delete(saveDto);
+        System.out.println(result);
+        model.addAttribute("result",result);
+
+
+
+        return "resultDelete";
     }
 
 

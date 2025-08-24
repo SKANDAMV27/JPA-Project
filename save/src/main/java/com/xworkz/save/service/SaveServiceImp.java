@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class SaveServiceImp implements SaveService{
     public SaveServiceImp() {
-        System.out.println("no args of Service...");
+        System.out.println("no args of Service...☺");
     }
 
     @Autowired
@@ -33,6 +33,8 @@ public class SaveServiceImp implements SaveService{
         return saveRepository.save(saveEntity);
     }
 
+
+    //This is For The Display  The Full Table
     @Override
     public List<SaveEntity> getAll() {
         System.out.println("Service Get All Method");
@@ -41,6 +43,21 @@ public class SaveServiceImp implements SaveService{
 //        SaveEntity saveEntity = new SaveEntity();
             return saveRepository.getAll();
     }
+
+    // This is remove the Column Based On the id
+
+    @Override
+    public String delete(SaveDto saveDto) {
+        System.out.println("Delete The Coloumn Based On The Id");
+        SaveEntity saveEntity = new SaveEntity();
+        saveEntity.setUserName((saveDto.getName()));
+
+        return saveRepository.remove(saveEntity);
+    }
+
+
+
+
 
 
 }

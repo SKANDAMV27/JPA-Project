@@ -7,8 +7,16 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "save_table")
-@NamedQuery(name = "getAll", query = "SELECT entity FROM SaveEntity entity")
-@NamedQuery(name="remove",query = "Delete entity From SaveEntity entity.id:id and entity.userName:userName")
+@NamedQueries({
+        @NamedQuery(
+                name = "getAll",
+                query = "SELECT e FROM SaveEntity e"
+        ),
+        @NamedQuery(
+                name = "removeByUserName",
+                query = "DELETE FROM SaveEntity e WHERE e.userName = :userName"
+        )
+})
 public class SaveEntity {
 
     @Id
@@ -26,4 +34,8 @@ public class SaveEntity {
 
     @Column(name = "age")
     private int userAge;
+
+    public SaveEntity() {
+        System.out.println("Save Entity created");
+    }
 }
