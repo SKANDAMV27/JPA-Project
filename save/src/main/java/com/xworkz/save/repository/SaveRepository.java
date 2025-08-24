@@ -12,6 +12,6 @@ public interface SaveRepository {
 
      String remove(SaveEntity saveEntity);
 
-
+    String checkEmailAndNumber(String email,String age);
 
 }

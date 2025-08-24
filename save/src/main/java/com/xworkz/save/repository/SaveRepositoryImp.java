@@ -82,4 +82,20 @@ public class SaveRepositoryImp implements SaveRepository {
             em.close();
         }
     }
+
+    @Override
+    public String checkEmailAndNumber(String email, String age) {
+        EntityManager em = emf.createEntityManager();
+        try{
+            Query query = em.createNamedQuery("checkEmailAndNumber");
+            query.setParameter("email",email);
+            query.setParameter("number",)
+
+        } catch (Exception e) {
+
+        }finally {
+
+        }
+        return "";
+    }
 }
