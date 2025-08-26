@@ -11,6 +11,8 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class SaveDto {
 
+    private String Id;
+
     @NotNull
     @Size(min=3,max=30,message = "Name Should be Min 3 and Max 30 In Size")
     private String name;

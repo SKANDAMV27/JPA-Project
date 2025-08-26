@@ -27,6 +27,7 @@
     <table class="table table-bordered table-hover table-striped text-center align-middle">
         <thead class="table-danger">
             <tr>
+                <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Age</th>
@@ -37,6 +38,7 @@
         <tbody>
             <c:forEach var="dto" items="${entity}">
                 <tr>
+                    <td>${dto.id}</td>
                     <td>${dto.userName}</td>
                     <td>${dto.userEmail}</td>
                     <td>${dto.userAge}</td>

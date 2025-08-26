@@ -23,6 +23,10 @@
                     </c:forEach>
         <h2>${errorMessage}</h2>
         <div class="mb-3">
+                  <label for="Id" class="form-label">Id</label>
+                  <input type="text" class="form-control" id="nameId" name="Id" required>
+                </div>
+        <div class="mb-3">
           <label for="nameId" class="form-label">Name</label>
           <input type="text" class="form-control" id="nameId" name="name" required>
         </div>

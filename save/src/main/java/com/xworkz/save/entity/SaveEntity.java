@@ -18,8 +18,8 @@ import javax.persistence.*;
         ),
         @NamedQuery(name="checkEmailAndNumber",
                 query = "Select count (e) from SaveEntity e where e.userEmail=:userEmail or e.userNumber = :userNumber"),
-        @NamedQuery(name = "updateTheRow",
-                query = "Update SaveEntity e Set e.userEmail=:email,e.userNumber=:number,e.userAge=:age where  e.userName= :name")
+//        @NamedQuery(name = "updateTheRow",
+//                query = "Update SaveEntity e Set e.userEmail=:email,e.userNumber=:number,e.userAge=:age where  e.userName= :name")
 })
 public class SaveEntity {
 

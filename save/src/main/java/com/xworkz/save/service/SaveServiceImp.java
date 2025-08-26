@@ -74,19 +74,22 @@ public class SaveServiceImp implements SaveService{
     public boolean updateTheRow(SaveDto saveDto) {
         System.out.println("Update The Data");
 
-        int updatedRows = saveRepository.updateTheRow(
-                saveDto.getEmail(),
-                saveDto.getNumber(),
-                saveDto.getAge()
-        );
-
-        if (updatedRows < 0) {
-            System.out.println("Row updated successfully for email: " + saveDto.getEmail());
-            return true;
-        } else {
-            System.out.println("No row found with given email and number");
-            return false;
-        }
+        SaveEntity saveEntity = new SaveEntity();
+        saveEntity.setUserName(saveDto.getName());
+        saveEntity.setUserEmail(saveDto.getEmail());
+        saveEntity.setUserAge(saveDto.getAge());
+        saveEntity.setUserNumber(saveDto.getNumber());
+//        int updatedRows = saveRepository.updateTheRow();
+//        System.out.println("Update...");
+//        if (updatedRows > 0) {
+//            System.out.println("No Data Found in Data Base");
+//            return false;
+//
+//        } else {
+//            System.out.println("Row updated successfully : " + saveDto.getName());
+//            return true;
+//        }
+        return saveRepository.updateTheRow(saveEntity);
     }
 
 

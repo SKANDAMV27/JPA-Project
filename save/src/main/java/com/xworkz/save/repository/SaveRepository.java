@@ -14,6 +14,6 @@ public interface SaveRepository {
 
     boolean checkEmailAndNumber(String email,String number);
 
-    int updateTheRow(String email,String number,int age);
+    boolean updateTheRow(SaveEntity saveEntity);
 
 }

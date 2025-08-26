@@ -48,31 +48,33 @@ public class SaveRepositoryImp implements SaveRepository {
 
     //THis is for Update
     @Override
-    public int updateTheRow(String email, String number, int age) {
+    public boolean updateTheRow(SaveEntity saveEntity) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        try {
+            tx.begin();
+//            Query query = em.createNamedQuery("updateTheRow");
+//            query.setParameter("email", email);
+//            query.setParameter("number", number);
+//            query.setParameter("age", age);
+//            query.setParameter("name",name);
+//            int rows = query.executeUpdate();
+            em.merge(saveEntity);
 
-        EntityManager entityManager = emf.createEntityManager();
-        EntityTransaction entityTransaction = entityManager.getTransaction();
-        try{
-            entityTransaction.begin();
-            Query query = entityManager.createNamedQuery("updateTheRow");
-            query.setParameter("email",email);
-            query.setParameter("number",number);
-            query.setParameter("age",age);
-            int rows = query.executeUpdate();
-            entityTransaction.commit();
-            return rows;
-
-
+            tx.commit();
+            return true;
+//            return rows;
         } catch (Exception e) {
-            if(entityTransaction!=null && entityTransaction.isActive()){
-                entityTransaction.rollback();
+            if (tx.isActive()) {
+                tx.rollback();
             }
-        }finally {
-            entityManager.close();
+            e.printStackTrace();
+        } finally {
+            em.close();
         }
-        return 0;
-
+        return false;
     }
+
 
     // Save a record
     @Override
