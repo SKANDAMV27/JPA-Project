@@ -16,7 +16,7 @@
 
       <div class="d-grid gap-3">
         <a href="save.jsp" class="btn btn-primary btn-lg rounded-pill"> Save</a>
-        <a href="update.jsp" class="btn btn-warning btn-lg rounded-pill"> Update</a>
+        <a href="updateName.jsp" class="btn btn-warning btn-lg rounded-pill"> Update</a>
         <a href="delete.jsp" class="btn btn-danger btn-lg rounded-pill"> Delete</a>
         <a href="view" class="btn btn-success btn-lg rounded-pill"> View</a>
       </div>

@@ -18,4 +18,6 @@ public interface SaveService {
 
      boolean checkEmailAndNumber(String email, String number);
 
+     boolean updateTheRow(SaveDto saveDto);
+
 }

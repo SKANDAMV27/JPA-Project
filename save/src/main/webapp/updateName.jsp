@@ -16,7 +16,7 @@
       <h2 class="text-center mb-3">Operation</h2>
       <h5 class="text-muted text-center mb-4">Save The Data</h5>
 
-      <form action="save" method="post">
+      <form action="update" method="post">
 
     <!  <c:forEach items="${errors}" var="error">
                       <div class="field-error">${error.defaultMessage}</div>
@@ -44,7 +44,7 @@
         </div>
 
         <div class="d-grid">
-          <button type="submit" class="btn btn-primary btn-lg rounded-pill">💾 Save</button>
+          <button type="submit" class="btn btn-primary btn-lg rounded-pill">Update</button>
         </div>
       </form>
     </div>

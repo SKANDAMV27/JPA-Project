@@ -46,6 +46,34 @@ public class SaveRepositoryImp implements SaveRepository {
 
     }
 
+    //THis is for Update
+    @Override
+    public int updateTheRow(String email, String number, int age) {
+
+        EntityManager entityManager = emf.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try{
+            entityTransaction.begin();
+            Query query = entityManager.createNamedQuery("updateTheRow");
+            query.setParameter("email",email);
+            query.setParameter("number",number);
+            query.setParameter("age",age);
+            int rows = query.executeUpdate();
+            entityTransaction.commit();
+            return rows;
+
+
+        } catch (Exception e) {
+            if(entityTransaction!=null && entityTransaction.isActive()){
+                entityTransaction.rollback();
+            }
+        }finally {
+            entityManager.close();
+        }
+        return 0;
+
+    }
+
     // Save a record
     @Override
     public String save(SaveEntity saveEntity) {

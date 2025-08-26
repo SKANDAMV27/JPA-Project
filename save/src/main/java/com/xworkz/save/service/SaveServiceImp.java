@@ -70,5 +70,27 @@ public class SaveServiceImp implements SaveService{
         return exist;
     }
 
+    @Override
+    public boolean updateTheRow(SaveDto saveDto) {
+        System.out.println("Update The Data");
+
+        int updatedRows = saveRepository.updateTheRow(
+                saveDto.getEmail(),
+                saveDto.getNumber(),
+                saveDto.getAge()
+        );
+
+        if (updatedRows < 0) {
+            System.out.println("Row updated successfully for email: " + saveDto.getEmail());
+            return true;
+        } else {
+            System.out.println("No row found with given email and number");
+            return false;
+        }
+    }
+
 
 }
+
+
+

@@ -118,11 +118,35 @@ public class SaveController {
         String result = saveServiceImpl.delete(saveDto);
         System.out.println(result);
         model.addAttribute("result",result);
-
-
-
         return "resultDelete";
     }
+
+    @RequestMapping("/update")
+    public String update(@Valid SaveDto saveDto,Model model,BindingResult bindingResult){
+        System.out.println("Update Controller");
+        //  form validation errors
+        if (bindingResult.hasErrors()) {
+            List<ObjectError> objectErrorList = bindingResult.getAllErrors();
+            for (ObjectError objectError : objectErrorList) {
+                System.out.println(objectError.getDefaultMessage());
+            }
+            model.addAttribute("errors", objectErrorList);
+            model.addAttribute("errorMessage", "Correct your form");
+            return "updateName"; // back to form page
+        }
+
+        boolean save = saveServiceImpl.updateTheRow(saveDto);
+        model.addAttribute("name","Updated Name: "+saveDto.getName());
+        model.addAttribute("email","Updated Email:"+saveDto.getEmail());
+        model.addAttribute("age","Age: "+saveDto.getAge());
+        model.addAttribute("number","Number: "+saveDto.getNumber());
+
+        System.out.println(save);
+
+        return "result";
+    }
+
+
 
 
 
