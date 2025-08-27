@@ -16,7 +16,7 @@ public interface SaveService {
 
      String delete(SaveDto saveDto);
 
-     boolean checkEmailAndNumber(String email, String number);
+     boolean checkEmailAndNumber(String email, String number,String name);
 
      boolean updateTheRow(SaveDto saveDto);
 

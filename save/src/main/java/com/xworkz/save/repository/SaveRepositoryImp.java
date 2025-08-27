@@ -20,13 +20,14 @@ public class SaveRepositoryImp implements SaveRepository {
 
     //This is to Check If Email And Phone is already Is in db are not
     @Override
-    public boolean checkEmailAndNumber(String email, String number) {
+    public boolean checkEmailAndNumber(String email, String number,String name) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction et = em.getTransaction();
         try{
             Query query = em.createNamedQuery("checkEmailAndNumber");
             query.setParameter("userEmail",email);
             query.setParameter("userNumber",number);
+            query.setParameter("userName",name);
 
 //            /String check = query.getSingleResult().toString();
 
@@ -46,7 +47,7 @@ public class SaveRepositoryImp implements SaveRepository {
 
     }
 
-    //THis is for Update
+    //THis is for Update but it is not working
     @Override
     public boolean updateTheRow(SaveEntity saveEntity) {
         EntityManager em = emf.createEntityManager();

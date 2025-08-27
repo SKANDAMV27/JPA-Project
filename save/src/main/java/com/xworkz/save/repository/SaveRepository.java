@@ -12,7 +12,7 @@ public interface SaveRepository {
 
      String remove(SaveEntity saveEntity);
 
-    boolean checkEmailAndNumber(String email,String number);
+    boolean checkEmailAndNumber(String email,String number,String name);
 
     boolean updateTheRow(SaveEntity saveEntity);
 

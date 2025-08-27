@@ -17,7 +17,8 @@ import javax.persistence.*;
                 query = "DELETE FROM SaveEntity e WHERE e.userName = :userName"
         ),
         @NamedQuery(name="checkEmailAndNumber",
-                query = "Select count (e) from SaveEntity e where e.userEmail=:userEmail || e.userNumber = :userNumber || e.userName =:userName"),
+                query = "Select count (e) from SaveEntity e where e.userEmail=:userEmail OR e.userNumber = :userNumber OR e.userName = :userName"
+        ),
 //        @NamedQuery(name = "updateTheRow",
 //                query = "Update SaveEntity e Set e.userEmail=:email,e.userNumber=:number,e.userAge=:age where  e.userName= :name")
 })

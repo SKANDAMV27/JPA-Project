@@ -78,19 +78,21 @@ public class SaveServiceImp implements SaveService{
     }
 
     @Override
-    public boolean checkEmailAndNumber(String email, String number) {
+    public boolean checkEmailAndNumber(String email, String number,String name) {
 
         System.out.println("Check The Email And Number Is already in DB are not");
 
-        boolean exist = saveRepository.checkEmailAndNumber(email,number);
+        boolean exist = saveRepository.checkEmailAndNumber(email,number,name);
 
         if(exist){
             System.out.println("Save");
+            return exist;
         }else{
             System.out.println("Email and Number are already in DB");
+            return false;
         }
 
-        return exist;
+
     }
 
 
