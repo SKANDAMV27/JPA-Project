@@ -18,6 +18,28 @@ public class SaveServiceImp implements SaveService{
         public SaveRepository saveRepository;
 
     @Override
+    public boolean updateTheRow(SaveDto saveDto) {
+        System.out.println("Update The Data");
+
+        SaveEntity saveEntity = new SaveEntity();
+        saveEntity.setUserName(saveDto.getName());
+        saveEntity.setUserEmail(saveDto.getEmail());
+        saveEntity.setUserAge(saveDto.getAge());
+        saveEntity.setUserNumber(saveDto.getNumber());
+//        int updatedRows = saveRepository.updateTheRow();
+//        System.out.println("Update...");
+//        if (updatedRows > 0) {
+//            System.out.println("No Data Found in Data Base");
+//            return false;
+//
+//        } else {
+//            System.out.println("Row updated successfully : " + saveDto.getName());
+//            return true;
+//        }
+        return saveRepository.updateTheRow(saveEntity);
+    }
+
+    @Override
     public String save(SaveDto saveDto) {
         System.out.println("Service Layer");
 
@@ -47,9 +69,10 @@ public class SaveServiceImp implements SaveService{
 
     @Override
     public String delete(SaveDto saveDto) {
-        System.out.println("Delete The Coloumn Based On The Id");
+        System.out.println("Delete The Coloumn Based On The Name:");
         SaveEntity saveEntity = new SaveEntity();
         saveEntity.setUserName((saveDto.getName()));
+        System.out.println("TO DELETE");
 
         return saveRepository.remove(saveEntity);
     }
@@ -70,27 +93,7 @@ public class SaveServiceImp implements SaveService{
         return exist;
     }
 
-    @Override
-    public boolean updateTheRow(SaveDto saveDto) {
-        System.out.println("Update The Data");
 
-        SaveEntity saveEntity = new SaveEntity();
-        saveEntity.setUserName(saveDto.getName());
-        saveEntity.setUserEmail(saveDto.getEmail());
-        saveEntity.setUserAge(saveDto.getAge());
-        saveEntity.setUserNumber(saveDto.getNumber());
-//        int updatedRows = saveRepository.updateTheRow();
-//        System.out.println("Update...");
-//        if (updatedRows > 0) {
-//            System.out.println("No Data Found in Data Base");
-//            return false;
-//
-//        } else {
-//            System.out.println("Row updated successfully : " + saveDto.getName());
-//            return true;
-//        }
-        return saveRepository.updateTheRow(saveEntity);
-    }
 
 
 }
