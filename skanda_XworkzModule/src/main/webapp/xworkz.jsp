@@ -38,7 +38,7 @@
                     <div class="card border-0 shadow-sm p-3">
                         <h5 class="fw-bold">📊 Dashboard</h5>
                         <p>View your reports and analytics.</p>
-                        <a href="#" class="btn btn-sm btn-primary">Go</a>
+                        <a href="index" class="btn btn-sm btn-primary">Go</a>
                     </div>
                 </div>
                 <div class="col-md-4">
