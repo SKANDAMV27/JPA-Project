@@ -96,25 +96,25 @@ public class XworkzController {
 
         else
             modelAndView.setViewName("signIn");
-            modelAndView.addObject("error", "Invalid credentials! Please try again.");
-            model.addAttribute("error","Invalid credentials! Please try again.");
-            System.out.println(xworkzDTO.getUserEmail());
-            System.out.println(xworkzDTO.getUserPassword());
-            System.out.println("Invalid Details");
-            return "signIn";
+        modelAndView.addObject("error", "Invalid credentials! Please try again.");
+        model.addAttribute("error","Invalid credentials! Please try again.");
+        System.out.println(xworkzDTO.getUserEmail());
+        System.out.println(xworkzDTO.getUserPassword());
+        System.out.println("Invalid Details");
+        return "signIn";
     }
 
-        @RequestMapping("/forgotPassword")
-        public String sendOTP(@Valid EmailDTO emailDTO,BindingResult bindingResult,Model model){
-            System.out.println("OPT Sent Controller Method");
+    @RequestMapping("/forgotPassword")
+    public String sendOTP(@Valid EmailDTO emailDTO,BindingResult bindingResult,Model model){
+        System.out.println("OPT Sent Controller Method");
         if(bindingResult.hasErrors()){
             System.out.println("Send OTP Method In Side if Else");
             return "forgotPassword";
         }
 
-            System.out.println("..OPT Send Out Side The if Condition..");
+        System.out.println("..OPT Send Out Side The if Condition..");
         return "forgotPassword";
-        }
+    }
 }
 
 

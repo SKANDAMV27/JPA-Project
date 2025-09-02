@@ -3,6 +3,8 @@ package com.xworkz.skanda_XworkzModule.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name="xworkz_table")
@@ -28,8 +30,17 @@ public class XworkzEntity {
 
     @Column(name="password")
     private String userPassword;
+
     @Column(name="adress")
     private String userAdress;
+
     @Column(name="gender")
     private String userGender;
+
+    @Column(name="filed_attempts")
+    private  int userFiledAttempts;
+
+
+    @Column(name="time")
+    private LocalDateTime LockTime;
 }

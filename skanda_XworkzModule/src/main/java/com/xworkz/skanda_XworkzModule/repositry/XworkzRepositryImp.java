@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -53,25 +54,59 @@ public class XworkzRepositryImp implements XworkzRepositry {
 
         try {
             Query query = manager.createQuery(
-                    "SELECT e.userPassword FROM XworkzEntity e WHERE e.userEmail = :email"
+                    "SELECT e FROM XworkzEntity e WHERE e.userEmail = :email"
             );
             query.setParameter("email", email);
 
-            String dbPassword = (String) query.getSingleResult(); // Hashed password
+            XworkzEntity user = (XworkzEntity) query.getSingleResult();
 
-            if (dbPassword != null) {
-                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                return encoder.matches(password, dbPassword); // Compare plain vs hashed
+            if (user == null) {
+                return false;
             }
 
+            // Check if account is locked
+            if (user.getLockTime() != null && user.getLockTime().isAfter(LocalDateTime.now())) {
+                System.out.println("Account locked until: " + user.getLockTime());
+                return false;
+            }
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (encoder.matches(password, user.getUserPassword())) {
+                // ✅ Success → reset failed attempts
+                manager.getTransaction().begin();
+                user.setUserFiledAttempts(0);
+                user.setLockTime(null);
+                manager.merge(user);
+                manager.getTransaction().commit();
+                return true;
+            } else {
+                //  Wrong password → increase attempts
+                manager.getTransaction().begin();
+                int attempts = user.getUserFiledAttempts() + 1;
+                user.setUserFiledAttempts(attempts);
+
+                if (attempts >= 3) {
+                    user.setLockTime(LocalDateTime.now().plusMinutes(15));
+                    System.out.println("Account locked for 15 minutes.");
+                }
+
+                manager.merge(user);
+                manager.getTransaction().commit();
+                return false;
+            }
+
+
+        } catch (NoResultException e) {
+            System.out.println("Email not found.");
+            return false;
         } catch (Exception e) {
             System.out.println("Error during signInValidation: " + e.getMessage());
             return false;
         } finally {
             manager.close();
         }
-        return false;
     }
+
 
     @Override
     public boolean checKEmail(String email) {
