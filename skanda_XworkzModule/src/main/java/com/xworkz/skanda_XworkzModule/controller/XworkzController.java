@@ -78,45 +78,47 @@ public class XworkzController {
     }
 
     @RequestMapping("/signIn")
-    public String signInValidation(@Valid SignInDTO xworkzDTO, ModelAndView modelAndView,Model model,BindingResult bindingResult)
-
-
-    {
+    public String signInValidation(@Valid @ModelAttribute SignInDTO xworkzDTO,
+                                   BindingResult bindingResult,
+                                   Model model,
+                                   ModelAndView modelAndView) {
 
         System.out.println("X-Workz Controller");
-        if (xworkzServiceImp.signInValidation(xworkzDTO.getUserPassword(), xworkzDTO.getUserEmail())) {
+
+        if (bindingResult.hasErrors()) {
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            for(ObjectError error : errors){
+                System.out.println(error.getDefaultMessage());
+            }
+//
+            return "signIn";
+        }
+
+        if (xworkzServiceImp.signInValidation(xworkzDTO.getUserEmail(), xworkzDTO.getUserPassword())) {
             modelAndView.setViewName("Welcome");
             modelAndView.addObject("message", "SignIn Successfully");
-
-            model.addAttribute("message","SignIn Successfully");
-
-            System.out.println("Success");
-            System.out.println(xworkzDTO.getUserPassword());
-            System.out.println(xworkzDTO.getUserEmail());
+            model.addAttribute("message", "SignIn Successfully");
             return "xworkz";
-        }
-
-        else
+        } else {
             modelAndView.setViewName("signIn");
-        modelAndView.addObject("error", "Invalid credentials! Please try again.");
-        model.addAttribute("error","Invalid credentials! Please try again.");
-        System.out.println(xworkzDTO.getUserEmail());
-        System.out.println(xworkzDTO.getUserPassword());
-        System.out.println("Invalid Details");
-        return "signIn";
-    }
-
-    @RequestMapping("/forgotPassword")
-    public String sendOTP(@Valid EmailDTO emailDTO,BindingResult bindingResult,Model model){
-        System.out.println("OPT Sent Controller Method");
-        if(bindingResult.hasErrors()){
-            System.out.println("Send OTP Method In Side if Else");
-            return "forgotPassword";
+            modelAndView.addObject("error", "Invalid credentials! Please try again.");
+            model.addAttribute("error", "Invalid credentials! Please try again.");
+            return "signIn";
         }
-
-        System.out.println("..OPT Send Out Side The if Condition..");
-        return "forgotPassword";
     }
+
+
+//    @RequestMapping("/forgotPassword")
+//    public String sendOTP(@Valid EmailDTO emailDTO,BindingResult bindingResult,Model model){
+//        System.out.println("OPT Sent Controller Method");
+//        if(bindingResult.hasErrors()){
+//            System.out.println("Send OTP Method In Side if Else");
+//            return "forgotPassword";
+//        }
+//
+//        System.out.println("..OPT Send Out Side The if Condition..");
+//        return "forgotPassword";
+//    }
 }
 
 

@@ -52,28 +52,31 @@ public class XworkzRepositryImp implements XworkzRepositry {
 
 
 
-    @Override public boolean signInValidation(String password, String email)
-    {
+    @Override
+    public boolean signInValidation(String email, String password) {
         EntityManager manager = entityManagerFactory.createEntityManager();
-        System.out.println("Xworkz Repo...");
-        try
-        {
-            Query query = manager.createQuery( "SELECT e.userPassword FROM XworkzEntity e WHERE e.userEmail = :email" );
-         query.setParameter("email", email);
-         String dbPassword = (String) query.getSingleResult(); // Hashed password
-             if (dbPassword != null)
-             {
-                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                 return encoder.matches(password, dbPassword);
-             }
+        System.out.println("Repo: SignIn Validation...");
+
+        try {
+            Query query = manager.createQuery(
+                    "SELECT e.userPassword FROM XworkzEntity e WHERE e.userEmail = :email"
+            );
+            query.setParameter("email", email);
+
+            String dbPassword = (String) query.getSingleResult(); // hashed password
+            if (dbPassword != null) {
+                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+                return encoder.matches(password, dbPassword);
+            }
         } catch (Exception e) {
             System.out.println("Error during signInValidation: " + e.getMessage());
             return false;
-        } finally
-        {
+        } finally {
             manager.close();
-        } return false;
+        }
+        return false;
     }
+
 
 
 
