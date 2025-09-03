@@ -16,10 +16,17 @@
     body {
       background: linear-gradient(to right, #f8f9fa, #e9ecef);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 70px;  /* space for fixed navbar */
+      padding-bottom: 70px; /* space for fixed footer */
     }
 
     .navbar {
       background-color: #fff !important;
+    }
+
+    /* Fix header (navbar) */
+    .navbar.fixed-top {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
     .hero-section {
@@ -49,18 +56,45 @@
       transform: translateY(-10px);
     }
 
+    /* Fix footer */
     footer {
       background: #343a40;
       color: #fff;
-      padding: 40px 0;
+      padding: 15px 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    footer .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      flex: 1;
+    }
+
+    .footer-center {
+      flex: 1;
       text-align: center;
+    }
+
+    .footer-right {
+      flex: 1;
+      text-align: right;
+    }
+
+    #dateTime {
+      margin: 0;
     }
   </style>
 </head>
 <body>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-light shadow-sm fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="x-workz-logo.jpg" alt="Logo" width="90" height="40" class="d-inline-block align-text-top">
@@ -72,7 +106,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <div class="d-flex">
           <a href="signUp.jsp" class="btn btn-outline-primary me-2">Sign Up</a>
-          <a href="signIn.jsp" class="btn btn-primary">Sign In</a>
+          <a href="signIn" class="btn btn-primary">Sign In</a>
         </div>
       </div>
     </div>
@@ -138,8 +172,14 @@
 
   <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>&copy; 2025 X-Workz ODC. All rights reserved.</p>
+    <div class="container footer-content">
+      <div class="footer-left"></div>
+      <div class="footer-center">
+        <p>&copy; <span id="year"></span> X-Workz ODC. All rights reserved.</p>
+      </div>
+      <div class="footer-right">
+        <p id="dateTime"></p>
+      </div>
     </div>
   </footer>
 
@@ -147,5 +187,21 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+
+  <!-- Custom JS for Date & Time -->
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      document.getElementById("year").textContent = now.getFullYear();
+      document.getElementById("dateTime").textContent = now.toLocaleString();
+    }
+
+    // Run once on load
+    updateDateTime();
+
+    // Update every second
+    setInterval(updateDateTime, 1000);
+  </script>
+
 </body>
 </html>

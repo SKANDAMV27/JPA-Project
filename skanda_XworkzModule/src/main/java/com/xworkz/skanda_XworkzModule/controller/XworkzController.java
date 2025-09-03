@@ -65,14 +65,16 @@ public class XworkzController {
             System.out.println("Password Don't Match ");
             return "signUp";
         }
+        else {
 
 
-        //  Save to DB
-        String value = xworkzServiceImp.save(xworkzDTO);
-        System.out.println("Saved -> " + value);
+            //  Save to DB
+            String value = xworkzServiceImp.save(xworkzDTO);
+            System.out.println("Saved -> " + value);
 
-        model.addAttribute("success", "Registration successful!");
-        return "signIn";
+            model.addAttribute("success", "Registration successful!");
+            return "signIn";
+        }
     }
 
     @RequestMapping("/signIn")

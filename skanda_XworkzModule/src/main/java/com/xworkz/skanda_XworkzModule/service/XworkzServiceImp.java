@@ -12,6 +12,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDateTime;
 import java.util.Properties;
 
 @Service
@@ -27,22 +28,28 @@ public class XworkzServiceImp implements XworkzService {
         xworkz.setPhoneNumber(xworkzDTO.getPhoneNumber());
         xworkz.setUserEmail(xworkzDTO.getUserEmail());
         xworkz.setUserAge(xworkzDTO.getUserAge());
-        xworkz.setUserPassword(xworkzDTO.getUserPassword());
+        xworkz.setUserPassword(xworkzDTO.getUserPassword()); // plain password
         xworkz.setUserAdress(xworkzDTO.getUserAdress());
         xworkz.setUserGender(xworkzDTO.getGender());
 
         // Save to database
         String result = xworkzRepositryImp.save(xworkz);
 
-        // Send email after saving
+        if ("not saved".equals(result)) {
+            return "Registration failed!";
+        }
+
+        // Send email after successful save
         String email = xworkzDTO.getUserEmail();
         String subject = "Welcome To X-WorkZ";
-        String body = "Hi " + xworkzDTO.getUserName() + ",\n\nThank you for registering at X-WorkZ.\n\n- Skanda M V\nThirthahalli";
+        String body = "Hi " + xworkzDTO.getUserName()
+                + ",\n\nThank you for registering at X-WorkZ.\n\n- Skanda M V\nThirthahalli";
 
         sendEmail(email, subject, body);
 
         return result;
     }
+
 
     // Method for sending email
     private void sendEmail(String email, String subject, String body) {
@@ -81,14 +88,15 @@ public class XworkzServiceImp implements XworkzService {
     }
 
     @Override
-    public boolean signInValidation(String password, String email)
+    public boolean signInValidation(String password, String email) {
+        System.out.println("SignIn Validation");
 
-    {
-        System.out.println("...SignIn Validation...");
-        boolean isValid = xworkzRepositryImp.signInValidation(password, email);
+        boolean isValid = xworkzRepositryImp.signInValidation(email,password);
 
 
         return isValid;
     }
+
+
 
 }

@@ -8,10 +8,10 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name="xworkz_table")
-//@NamedQuery(name = "signInValidation",query = "Select entity.userPassword from XworkzEntity entity where entity.userEmail = :email")
-@NamedQuery(name = "emailOPT",query = "Select entity from XworkzEntity entity where entity.userEmail=:email" )
-@NamedQuery(name="otpSend",query = "select entity from XworkzEntity entity where entity.userEmail=:email ")
+@NamedQuery(name = "emailOPT", query = "SELECT e FROM XworkzEntity e WHERE e.userEmail = :email")
+@NamedQuery(name="otpSend", query = "SELECT e FROM XworkzEntity e WHERE e.userEmail = :email")
 public class XworkzEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,7 +26,7 @@ public class XworkzEntity {
     private String userEmail;
 
     @Column(name="age")
-    private  int userAge;
+    private int userAge;
 
     @Column(name="password")
     private String userPassword;
@@ -37,10 +37,7 @@ public class XworkzEntity {
     @Column(name="gender")
     private String userGender;
 
-    @Column(name="filed_attempts")
-    private  int userFiledAttempts;
 
-
-    @Column(name="time")
-    private LocalDateTime LockTime;
 }
+
+
