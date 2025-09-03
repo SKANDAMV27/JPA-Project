@@ -6,7 +6,7 @@ import com.xworkz.skanda_XworkzModule.entity.XworkzEntity;
 public interface XworkzService {
     String save(XworkzDTO xworkzDTO);
 
-    boolean signInValidation(String password,String email);
+    String signInValidation(String password,String email);
 
 //    public XworkzEntity findByEmail(String email);
 

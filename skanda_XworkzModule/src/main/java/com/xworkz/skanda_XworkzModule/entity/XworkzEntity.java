@@ -37,7 +37,14 @@ public class XworkzEntity {
     @Column(name="gender")
     private String userGender;
 
+    @Column(name="failled_attempts")
+    private int failedAttempts;
 
+    @Column(name = "account_lock")
+    private boolean accountLocked = false;
+
+    @Column(name="lock_time")
+    private LocalDateTime  lockTime;
 }
 
 

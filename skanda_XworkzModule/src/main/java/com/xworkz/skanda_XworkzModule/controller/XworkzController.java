@@ -80,32 +80,36 @@ public class XworkzController {
     @RequestMapping("/signIn")
     public String signInValidation(@Valid @ModelAttribute SignInDTO xworkzDTO,
                                    BindingResult bindingResult,
-                                   Model model,
-                                   ModelAndView modelAndView) {
+                                   Model model) {
 
         System.out.println("X-Workz Controller");
 
+        // Handle validation errors (like email blank, password blank etc.)
         if (bindingResult.hasErrors()) {
             List<ObjectError> errors = bindingResult.getAllErrors();
-            for(ObjectError error : errors){
+            for (ObjectError error : errors) {
                 System.out.println(error.getDefaultMessage());
             }
-//
+            model.addAttribute("error", "Please correct the highlighted errors.");
             return "signIn";
         }
 
-        if (xworkzServiceImp.signInValidation(xworkzDTO.getUserEmail(), xworkzDTO.getUserPassword())) {
-            modelAndView.setViewName("Welcome");
-            modelAndView.addObject("message", "SignIn Successfully");
+        // Call service
+        String result = xworkzServiceImp.signInValidation(
+                xworkzDTO.getUserEmail(),
+                xworkzDTO.getUserPassword()
+        );
+
+        if ("SUCCESS".equals(result)) {
             model.addAttribute("message", "SignIn Successfully");
-            return "xworkz";
+            return "display";
         } else {
-            modelAndView.setViewName("signIn");
-            modelAndView.addObject("error", "Invalid credentials! Please try again.");
-            model.addAttribute("error", "Invalid credentials! Please try again.");
+            // Any other message comes from service (invalid password, locked account, etc.)
+            model.addAttribute("error", result);
             return "signIn";
         }
     }
+
 
 
 //    @RequestMapping("/forgotPassword")

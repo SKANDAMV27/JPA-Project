@@ -1,9 +1,11 @@
 package com.xworkz.skanda_XworkzModule.service;
 
+import com.xworkz.skanda_XworkzModule.dto.SignInDTO;
 import com.xworkz.skanda_XworkzModule.dto.XworkzDTO;
 import com.xworkz.skanda_XworkzModule.entity.XworkzEntity;
 import com.xworkz.skanda_XworkzModule.repositry.XworkzRepositry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
@@ -88,10 +90,54 @@ public class XworkzServiceImp implements XworkzService {
     }
 
     @Override
-    public boolean signInValidation(String email, String password) {
+    public String signInValidation(String email, String password) {
         System.out.println("Service: SignIn Validation");
-        return xworkzRepositryImp.signInValidation(email, password);
+
+        XworkzEntity user = xworkzRepositryImp.signInValidation(email);
+
+        if (user == null) {
+            return "User not found!";
+        }
+
+        // Check account lock
+        if (user.isAccountLocked()) {
+            if (user.getLockTime() != null && user.getLockTime().plusHours(24).isAfter(LocalDateTime.now())) {
+                return "Your account is locked. Try again after 24 hours.";
+            } else {
+                // Unlock after 24 hrs
+                user.setAccountLocked(false);
+                user.setFailedAttempts(0);
+                user.setLockTime(null);
+                xworkzRepositryImp.updateUser(user);
+            }
+        }
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if (!encoder.matches(password, user.getUserPassword())) {
+            int attempts = user.getFailedAttempts() + 1;
+            user.setFailedAttempts(attempts);
+
+            if (attempts >= 3) {
+                user.setAccountLocked(true);
+                user.setLockTime(LocalDateTime.now());
+                xworkzRepositryImp.updateUser(user);
+                return "Your account has been locked due to 3 failed attempts.";
+            }
+
+            xworkzRepositryImp.updateUser(user);
+            return "Invalid password! Attempts left: " + (3 - attempts);
+        }
+
+        //
+        user.setFailedAttempts(0);
+        user.setAccountLocked(false);
+        user.setLockTime(null);
+        xworkzRepositryImp.updateUser(user);
+
+        return "SUCCESS";
     }
+
 
 
 

@@ -51,31 +51,48 @@ public class XworkzRepositryImp implements XworkzRepositry {
     }
 
 
+        @Override
+        public XworkzEntity signInValidation(String email) {
+            EntityManager manager = entityManagerFactory.createEntityManager();
+            System.out.println("Repo: SignIn Validation...");
+
+            try {
+                Query query = manager.createQuery("SELECT e FROM XworkzEntity e WHERE e.userEmail = :email");
+                query.setParameter("email", email);
+                return (XworkzEntity) query.getSingleResult();
+            } catch (NoResultException e) {
+                System.out.println("No user found with email: " + email);
+                return null;
+            } catch (Exception e) {
+                System.out.println("Error during signInValidation: " + e.getMessage());
+                return null;
+            } finally {
+                manager.close();
+            }
+        }
 
     @Override
-    public boolean signInValidation(String email, String password) {
+    public void updateUser(XworkzEntity user) {
         EntityManager manager = entityManagerFactory.createEntityManager();
-        System.out.println("Repo: SignIn Validation...");
-
+        EntityTransaction tx = manager.getTransaction();
         try {
-            Query query = manager.createQuery(
-                    "SELECT e.userPassword FROM XworkzEntity e WHERE e.userEmail = :email"
-            );
-            query.setParameter("email", email);
-
-            String dbPassword = (String) query.getSingleResult(); // hashed password
-            if (dbPassword != null) {
-                BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-                return encoder.matches(password, dbPassword);
-            }
+            tx.begin();
+            manager.merge(user); // merge updates existing entity
+            tx.commit();
         } catch (Exception e) {
-            System.out.println("Error during signInValidation: " + e.getMessage());
-            return false;
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            System.out.println("Error updating user: " + e.getMessage());
         } finally {
             manager.close();
         }
-        return false;
     }
+
+
+
+
+
 
 
 
