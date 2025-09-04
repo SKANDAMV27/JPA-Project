@@ -106,7 +106,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <div class="d-flex">
           <a href="signUp.jsp" class="btn btn-outline-primary me-2">Sign Up</a>
-          <a href="signIn" class="btn btn-primary">Sign In</a>
+          <a href="signIn.jsp" class="btn btn-primary">Sign In</a>
         </div>
       </div>
     </div>

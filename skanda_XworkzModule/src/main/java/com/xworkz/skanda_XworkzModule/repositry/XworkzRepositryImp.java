@@ -51,25 +51,31 @@ public class XworkzRepositryImp implements XworkzRepositry {
     }
 
 
-        @Override
-        public XworkzEntity signInValidation(String email) {
-            EntityManager manager = entityManagerFactory.createEntityManager();
-            System.out.println("Repo: SignIn Validation...");
+    @Override
+    public XworkzEntity signInValidation(String email) {
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        System.out.println("Repo: SignIn Validation...");
 
-            try {
-                Query query = manager.createQuery("SELECT e FROM XworkzEntity e WHERE e.userEmail = :email");
-                query.setParameter("email", email);
-                return (XworkzEntity) query.getSingleResult();
-            } catch (NoResultException e) {
-                System.out.println("No user found with email: " + email);
-                return null;
-            } catch (Exception e) {
-                System.out.println("Error during signInValidation: " + e.getMessage());
-                return null;
-            } finally {
-                manager.close();
+        try {
+            Query query = manager.createQuery("SELECT e FROM XworkzEntity e WHERE e.userEmail = :email");
+            query.setParameter("email", email);
+
+            // Use getResultList() to avoid NoResultException
+            List<XworkzEntity> results = query.getResultList();
+
+            if (results.isEmpty()) {
+                return null; // email not found
             }
+            return results.get(0); // return first match
+
+        } catch (Exception e) {
+            System.out.println("Error during signInValidation: " + e.getMessage());
+            return null;
+        } finally {
+            manager.close();
         }
+    }
+
 
     @Override
     public void updateUser(XworkzEntity user) {

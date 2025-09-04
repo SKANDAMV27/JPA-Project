@@ -78,37 +78,45 @@ public class XworkzController {
     }
 
     @RequestMapping("/signIn")
-    public String signInValidation(@Valid @ModelAttribute SignInDTO xworkzDTO,
+    public String signInValidation(@Valid @ModelAttribute SignInDTO signInDTO,
                                    BindingResult bindingResult,
                                    Model model) {
-
         System.out.println("X-Workz Controller");
 
-        // Handle validation errors (like email blank, password blank etc.)
         if (bindingResult.hasErrors()) {
-            List<ObjectError> errors = bindingResult.getAllErrors();
-            for (ObjectError error : errors) {
-                System.out.println(error.getDefaultMessage());
-            }
-            model.addAttribute("error", "Please correct the highlighted errors.");
             return "signIn";
         }
 
-        // Call service
-        String result = xworkzServiceImp.signInValidation(
-                xworkzDTO.getUserEmail(),
-                xworkzDTO.getUserPassword()
-        );
+        String result = xworkzServiceImp.signInValidation(signInDTO.getUserEmail(), signInDTO.getUserPassword());
 
-        if ("SUCCESS".equals(result)) {
-            model.addAttribute("message", "SignIn Successfully");
-            return "display";
-        } else {
-            // Any other message comes from service (invalid password, locked account, etc.)
-            model.addAttribute("error", result);
-            return "signIn";
+        switch (result) {
+            case "SUCCESS":
+                model.addAttribute("message", "SignIn Successfully");
+                return "display";
+
+            case "INVALID_EMAIL":
+                model.addAttribute("error", "Invalid email! Please try again.");
+                return "signIn";
+
+            case "INVALID_PASSWORD":
+                model.addAttribute("error", "Invalid password! Please try again.");
+                return "signIn";
+
+            case "LOCKED":
+                model.addAttribute("error", "Your account is locked. Try again after 24 hours.");
+                return "signIn";
+
+            case "LOCKED_NOW":
+                model.addAttribute("error", "Your account has been locked due to 3 failed attempts.");
+                return "signIn";
+
+            default:
+                model.addAttribute("error", "Login failed! Please try again.");
+                return "signIn";
         }
     }
+
+
 
 
 
