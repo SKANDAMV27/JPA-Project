@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name="xworkz_table")
-@NamedQuery(name = "emailOPT", query = "SELECT e FROM XworkzEntity e WHERE e.userEmail = :email")
+@NamedQuery(name = "emailValidiation", query = "SELECT e FROM XworkzEntity e WHERE e.userEmail = :email")
 @NamedQuery(name="otpSend", query = "SELECT e FROM XworkzEntity e WHERE e.userEmail = :email")
 public class XworkzEntity {
 

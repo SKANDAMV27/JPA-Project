@@ -27,7 +27,7 @@ public class XworkzRepositryImp implements XworkzRepositry {
         try {
             et.begin();
             // Encode password
-            BCryptPasswordEncoder encoder  = new BCryptPasswordEncoder();
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
             String password = encoder.encode(xworkz.getUserPassword());
             xworkz.setUserPassword(password);
 
@@ -53,28 +53,25 @@ public class XworkzRepositryImp implements XworkzRepositry {
 
     @Override
     public XworkzEntity signInValidation(String email) {
-        EntityManager manager = entityManagerFactory.createEntityManager();
         System.out.println("Repo: SignIn Validation...");
+        EntityManager manager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = manager.getTransaction();
+        XworkzEntity register = new XworkzEntity();
 
         try {
-            Query query = manager.createQuery("SELECT e FROM XworkzEntity e WHERE e.userEmail = :email");
-            query.setParameter("email", email);
-
-            // Use getResultList() to avoid NoResultException
-            List<XworkzEntity> results = query.getResultList();
-
-            if (results.isEmpty()) {
-                return null; // email not found
-            }
-            return results.get(0); // return first match
-
+           entityTransaction.begin();
+           Query query = manager.createNamedQuery("emailValidiation");
+           query.setParameter("email",email);
+           register = (XworkzEntity) query.getSingleResult();
         } catch (Exception e) {
-            System.out.println("Error during signInValidation: " + e.getMessage());
+            System.out.println("Error during signInValidation: ");
             return null;
         } finally {
             manager.close();
         }
+        return register;
     }
+
 
 
     @Override
