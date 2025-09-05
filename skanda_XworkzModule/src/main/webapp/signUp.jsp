@@ -88,7 +88,7 @@
               <!-- Address -->
               <div class="mb-3">
                 <label class="form-label">Address</label>
-                <textarea class="form-control" rows="2" placeholder="Enter your address" name="userAddress" required></textarea>
+                <textarea class="form-control" rows="2" placeholder="Enter your address" name="userAdress" required></textarea>
               </div>
               <!-- Gender -->
               <div class="mb-3">

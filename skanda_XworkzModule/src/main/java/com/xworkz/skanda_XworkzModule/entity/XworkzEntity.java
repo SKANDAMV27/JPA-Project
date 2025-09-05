@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @Entity
@@ -40,11 +41,17 @@ public class XworkzEntity {
     @Column(name="failled_attempts")
     private int failedAttempts;
 
-    @Column(name = "account_lock")
-    private boolean accountLocked = false;
+//    @Column(name = "account_lock")
+//    private boolean accountLocked = false;
 
     @Column(name="lock_time")
     private LocalDateTime  lockTime;
+
+    @Column(name="otp_code")
+    private String otpcode;
+
+    @Column(name="otp_time")
+    private LocalTime otpTime;
 }
 
 

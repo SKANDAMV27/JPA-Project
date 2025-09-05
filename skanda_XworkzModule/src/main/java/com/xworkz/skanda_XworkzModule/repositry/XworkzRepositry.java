@@ -11,7 +11,9 @@ public interface XworkzRepositry {
 
     public boolean checKEmail(String email);
 
+
+
 //    public XworkzEntity findByEmail(String email);
 
-    // public  boolean otpSend(String email);
+     public  XworkzEntity otpSend(String email);
 }

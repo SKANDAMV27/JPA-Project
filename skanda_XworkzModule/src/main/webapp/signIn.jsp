@@ -65,7 +65,7 @@
                 <input type="password" class="form-control" placeholder="Enter password"
                        name="userPassword" required>
                 <div class="mt-2 text-end">
-                  <a href="forgotPassword.jsp" class="text-decoration-none">Forgot Password?</a>
+                  <a href="forgotPassword" class="text-decoration-none">Forgot Password?</a>
                 </div>
               </div>
 

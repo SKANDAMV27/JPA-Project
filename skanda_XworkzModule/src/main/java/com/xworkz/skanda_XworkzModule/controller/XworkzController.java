@@ -88,6 +88,7 @@ public class XworkzController {
         }
 
         String result = xworkzServiceImp.signInValidation(signInDTO.getUserEmail(), signInDTO.getUserPassword());
+        System.out.println("Result: "+result);
 
         switch (result) {
             case "SUCCESS":
@@ -120,17 +121,24 @@ public class XworkzController {
 
 
 
-//    @RequestMapping("/forgotPassword")
-//    public String sendOTP(@Valid EmailDTO emailDTO,BindingResult bindingResult,Model model){
-//        System.out.println("OPT Sent Controller Method");
-//        if(bindingResult.hasErrors()){
-//            System.out.println("Send OTP Method In Side if Else");
-//            return "forgotPassword";
-//        }
-//
-//        System.out.println("..OPT Send Out Side The if Condition..");
-//        return "forgotPassword";
-//    }
+    @RequestMapping("/forgotPassword")
+    public String sendOTP(@Valid EmailDTO emailDTO,BindingResult bindingResult,Model model){
+        System.out.println("OPT Sent Controller Method");
+        if(bindingResult.hasErrors()) {
+            List<ObjectError> objectErrorList = bindingResult.getAllErrors();
+            for (ObjectError objectError : objectErrorList) {
+                System.out.println("Invalid.,");
+                System.out.println(objectError.getDefaultMessage());
+                return "forgotPassword";
+            }
+        }
+
+        System.out.println("After if statement");
+        String result = xworkzServiceImp.sendOTP(emailDTO.getEmail(),emailDTO);
+        System.out.println("OTP Send: "+result);
+        System.out.println("OTP Send To: "+emailDTO.getEmail());
+        return "forgotPassword";
+    }
 }
 
 

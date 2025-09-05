@@ -13,4 +13,6 @@ public class EmailDTO {
     @NotBlank(message = "Email Field Not Be Blank")
     @Email(message = "Enter The Valid Email")
     private String email;
+
+    private String name;
 }

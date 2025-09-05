@@ -55,22 +55,27 @@ public class XworkzRepositryImp implements XworkzRepositry {
     public XworkzEntity signInValidation(String email) {
         System.out.println("Repo: SignIn Validation...");
         EntityManager manager = entityManagerFactory.createEntityManager();
-        EntityTransaction entityTransaction = manager.getTransaction();
-        XworkzEntity register = new XworkzEntity();
+        System.out.println("It Not Enter To The Try");
 
         try {
-           entityTransaction.begin();
-           Query query = manager.createNamedQuery("emailValidiation");
-           query.setParameter("email",email);
-           register = (XworkzEntity) query.getSingleResult();
+            System.out.println("Enter To The Try");
+            Query query = manager.createNamedQuery("emailValidiation");
+            query.setParameter("email", email);
+            System.out.println("Before The Return");
+            return (XworkzEntity) query.getSingleResult();
+
+        }
+        catch (NoResultException e) {
+            System.out.println("No user found with email: " + email);
+            return null;
         } catch (Exception e) {
-            System.out.println("Error during signInValidation: ");
+            e.printStackTrace();
             return null;
         } finally {
             manager.close();
         }
-        return register;
     }
+
 
 
 
@@ -121,18 +126,24 @@ public class XworkzRepositryImp implements XworkzRepositry {
 
 
     }
+
+
 //
-//    @Override
-//    public boolean otpSend(String email) {
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//        try{
-//            Query query = entityManager.createNamedQuery("otpSend");
-//            query.setParameter("email",email);
-//            XworkzEntity xworkz = (XworkzEntity) query.getSingleResult();
-//            return
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//        return false;
-//    }
+    @Override
+    public XworkzEntity otpSend(String email) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        try{
+            Query query = entityManager.createNamedQuery("otpSend");
+            query.setParameter("email",email);
+            XworkzEntity xworkz = (XworkzEntity) query.getSingleResult();
+            System.out.println(xworkz);
+            return xworkz;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        finally {
+            entityManager.close();
+        }
+
+    }
 }

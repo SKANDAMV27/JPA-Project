@@ -1,5 +1,6 @@
 package com.xworkz.skanda_XworkzModule.service;
 
+import com.xworkz.skanda_XworkzModule.dto.EmailDTO;
 import com.xworkz.skanda_XworkzModule.dto.XworkzDTO;
 import com.xworkz.skanda_XworkzModule.entity.XworkzEntity;
 import com.xworkz.skanda_XworkzModule.repositry.XworkzRepositry;
@@ -15,7 +16,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Properties;
+import java.util.Random;
 
 @Service
 public class XworkzServiceImp implements XworkzService {
@@ -37,7 +40,7 @@ public class XworkzServiceImp implements XworkzService {
 
         String email = xworkz.getUserEmail();
         String head = "WelCome To X-WorkZ";
-        String body = "Dear "+xworkzDTO.getUserName()+",/n/nThankyou For Regestering";
+        String body = "Dear "+xworkzDTO.getUserName()+",\n\nThankyou For Regestering";
         sendEmail(email,head,body);
 
         return result;
@@ -82,6 +85,8 @@ public class XworkzServiceImp implements XworkzService {
     public String signInValidation(String email, String password) {
         System.out.println("Service: SignIn Validation");
 
+
+
         // 1. Check if email exists
         XworkzEntity user = xworkzRepositryImp.signInValidation(email);
 
@@ -90,18 +95,18 @@ public class XworkzServiceImp implements XworkzService {
         }
 
         // 2. Check if account is locked
-        if (user.isAccountLocked()) {
+
             if (user.getLockTime() != null &&
                     user.getLockTime().plusHours(24).isAfter(LocalDateTime.now())) {
                 return "LOCKED"; // still locked
             } else {
                 // Unlock after 24 hrs
-                user.setAccountLocked(false);
+//                user.setAccountLocked(false);
                 user.setFailedAttempts(0);
                 user.setLockTime(null);
                 xworkzRepositryImp.updateUser(user);
             }
-        }
+
 
         // 3. Verify password
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -110,7 +115,7 @@ public class XworkzServiceImp implements XworkzService {
             user.setFailedAttempts(attempts);
 
             if (attempts >= 3) {
-                user.setAccountLocked(true);
+//                user.setAccountLocked(true);
                 user.setLockTime(LocalDateTime.now());
                 xworkzRepositryImp.updateUser(user);
                 return "LOCKED_NOW";
@@ -122,10 +127,43 @@ public class XworkzServiceImp implements XworkzService {
 
         // 4. Reset login status if successful
         user.setFailedAttempts(0);
-        user.setAccountLocked(false);
+//        user.setAccountLocked(false);
         user.setLockTime(null);
         xworkzRepositryImp.updateUser(user);
 
         return "SUCCESS";
     }
+
+    @Override
+    public String sendOTP(String email,EmailDTO emailDTO) {
+        System.out.println("Send OTP Service");
+        XworkzEntity user =  xworkzRepositryImp.otpSend(email);
+        System.out.println(user);
+
+        if(user==null){
+            System.out.println("Email Id Not Found");
+            return "Email Not Found";
+        }
+
+
+        Random random = new Random();
+        String otp = String.valueOf(100000 + random.nextInt(900000));
+        user.setOtpcode(otp);
+        user.setOtpTime(LocalTime.from(LocalDateTime.now().plusMinutes(5)));
+        xworkzRepositryImp.updateUser(user);
+
+
+        String otpEmail = emailDTO.getEmail();
+        String head = "X-WorkZ OTP Verification";
+        String body = "Dear "+emailDTO.getName()+",\n\nYour OTP Code:"+otp+"\n\nRegards,\n\nSkanda M V\n\n9353193240\n\nskandagowda0@gmail.com";
+        sendEmail(otpEmail,head,body);
+
+        return "One Time Password Send Successfully To: "+emailDTO.getEmail();
+
+    }
+
+
+
+
+
 }
