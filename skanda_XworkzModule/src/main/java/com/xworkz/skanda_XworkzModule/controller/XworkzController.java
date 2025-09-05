@@ -60,13 +60,13 @@ public class XworkzController {
         }
 
         //  Check confirm password
-        if (!xworkzDTO.getUserPassword().equals(xworkzDTO.getConformPassword())) {
+        if (!xworkzDTO.getUserPassword().equals(xworkzDTO.getConfirmPassword())) {
             model.addAttribute("password", "Passwords do not match");
+            System.out.println(xworkzDTO.getUserPassword()+" "+xworkzDTO.getConfirmPassword());
             System.out.println("Password Don't Match ");
             return "signUp";
         }
         else {
-
 
             //  Save to DB
             String value = xworkzServiceImp.save(xworkzDTO);

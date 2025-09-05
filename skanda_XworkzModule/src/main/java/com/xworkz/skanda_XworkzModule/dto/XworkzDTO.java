@@ -34,8 +34,8 @@ public class XworkzDTO {
     )
     private String userPassword;
     @Transient
-    private String conformPassword;
-    @NotBlank
+    private String confirmPassword;
+
     private String userAdress;
     @Pattern(
             regexp = "^(m|f|o)$",
