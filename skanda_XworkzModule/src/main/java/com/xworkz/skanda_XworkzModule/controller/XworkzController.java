@@ -141,6 +141,12 @@ public class XworkzController {
         return "forgotPassword";
     }
 
+    @RequestMapping("/VerifyOTP")
+    public String VerifyOTP(XworkzDTO xworkzDTO,Model model){
+        System.out.println("Verify OTP Controller");
+        return "passwordChange";
+    }
+
     @RequestMapping("/deleteAccount")
     public String delete(XworkzDTO xworkzDTO,Model model){
         System.out.println("Delete The Account Controller");
@@ -150,6 +156,8 @@ public class XworkzController {
 
         return "deleteResult";
     }
+
+
 }
 
 

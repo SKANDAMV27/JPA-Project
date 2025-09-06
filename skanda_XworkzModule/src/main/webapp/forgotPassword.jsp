@@ -59,18 +59,26 @@
               <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
             </div>
 
-            <!-- OTP -->
-            <div class="mb-3">
-              <label>OTP</label>
-              <input type="text" name="otp" class="form-control" placeholder="Enter OTP" maxlength="6">
-            </div>
 
             <!-- Buttons -->
             <div class="d-flex justify-content-between">
               <button type="submit" class="btn btn-primary btn-sm">Send OTP</button>
-              <button type="submit" class="btn btn-success">Verify & Reset Password</button>
             </div>
           </form>
+           <form action="verifyOTP" method="post">
+
+
+                      <!-- OTP -->
+                      <div class="mb-3">
+                        <label>OTP</label>
+                        <input type="text" name="otpcode" class="form-control" placeholder="Enter OTP" maxlength="6">
+                      </div>
+
+                      <!-- Buttons -->
+                      <div class="d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success">Verify & Reset Password</button>
+                      </div>
+                    </form>
         </div>
       </div>
     </div>

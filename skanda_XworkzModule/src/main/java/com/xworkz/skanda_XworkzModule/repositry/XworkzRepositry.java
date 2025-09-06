@@ -18,4 +18,6 @@ public interface XworkzRepositry {
      public  XworkzEntity otpSend(String email);
 
      public String delete(String email);
+
+     public String
 }

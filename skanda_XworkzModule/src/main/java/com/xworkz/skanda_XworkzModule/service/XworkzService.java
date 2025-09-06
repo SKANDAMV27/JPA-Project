@@ -15,5 +15,7 @@ public interface XworkzService {
 
     String delete(XworkzDTO xworkzDTO);
 
+    String verifyOTP(String email,String OTP);
+
 
 }

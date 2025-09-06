@@ -186,5 +186,10 @@ public class XworkzServiceImp implements XworkzService {
 
     }
 
+    @Override
+    public String verifyOTP(String email, String OTP) {
+        return "";
+    }
+
 
 }

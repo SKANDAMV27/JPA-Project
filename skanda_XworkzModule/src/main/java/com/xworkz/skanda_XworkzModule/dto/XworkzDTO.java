@@ -43,4 +43,8 @@ public class XworkzDTO {
     )
     private String gender;
 
+    @NotNull
+    private String otpcode;
+
+
 }
