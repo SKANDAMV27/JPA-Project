@@ -13,5 +13,7 @@ public interface XworkzService {
 
     String sendOTP(String email,EmailDTO emailDTO);
 
+    String delete(XworkzDTO xworkzDTO);
+
 
 }

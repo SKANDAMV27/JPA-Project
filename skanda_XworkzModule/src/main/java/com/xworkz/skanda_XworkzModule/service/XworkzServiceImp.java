@@ -40,7 +40,14 @@ public class XworkzServiceImp implements XworkzService {
 
         String email = xworkz.getUserEmail();
         String head = "WelCome To X-WorkZ";
-        String body = "Dear "+xworkzDTO.getUserName()+",\n\nThankyou For Regestering";
+        String body = "Dear "+xworkzDTO.getUserName()+",\n\nThankyou For Regestering"+
+                "\n\nName: "+xworkzDTO.getUserName()
+                +"\n\nEmail: "+xworkzDTO.getUserEmail()+
+                "\n\nPassword: "+xworkzDTO.getUserPassword()+
+                "\n\nCity: "+xworkzDTO.getUserAdress()+"\n\n"+"\n\n"
+                +"\n\nSkanda M V"+
+                "\n\n9353193240"+"" +
+                "\n\nskandagowda0@gmail.com";
         sendEmail(email,head,body);
 
         return result;
@@ -162,8 +169,10 @@ public class XworkzServiceImp implements XworkzService {
 
     }
 
-
-
+    @Override
+    public String delete(XworkzDTO xworkzDTO) {
+        return "";
+    }
 
 
 }

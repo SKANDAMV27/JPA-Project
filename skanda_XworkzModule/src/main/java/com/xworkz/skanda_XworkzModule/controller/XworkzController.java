@@ -93,7 +93,7 @@ public class XworkzController {
         switch (result) {
             case "SUCCESS":
                 model.addAttribute("message", "SignIn Successfully");
-                return "display";
+                return "xworkz";
 
             case "INVALID_EMAIL":
                 model.addAttribute("error", "Invalid email! Please try again.");
@@ -138,6 +138,12 @@ public class XworkzController {
         System.out.println("OTP Send: "+result);
         System.out.println("OTP Send To: "+emailDTO.getEmail());
         return "forgotPassword";
+    }
+
+    @RequestMapping("/xworkz")
+    public String delete(XworkzDTO xworkzDTO){
+
+        return "";
     }
 }
 

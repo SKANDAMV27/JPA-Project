@@ -146,4 +146,9 @@ public class XworkzRepositryImp implements XworkzRepositry {
         }
 
     }
+
+    @Override
+    public String delete(XworkzEntity xworkz) {
+        return "";
+    }
 }
