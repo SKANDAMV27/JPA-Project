@@ -144,8 +144,18 @@ public class XworkzController {
     @RequestMapping("/VerifyOTP")
     public String VerifyOTP(XworkzDTO xworkzDTO,Model model){
         System.out.println("Verify OTP Controller");
+        String value = xworkzServiceImp.verifyOTP(xworkzDTO.getUserEmail(), xworkzDTO.getOtpcode());
+        if(value.isEmpty()){
+            System.out.println("Email Id Is Not Exist");
+            model.addAttribute("error","Email-Id Will Not Be Exist");
+            return "forgotPassword";
+        }
+        else{
+            System.out.println("Email-Id Is Exist");
+            model.addAttribute("success","Successfully Verify");
+            return "passwordChange";
 
-        return "passwordChange";
+        }
     }
 
     @RequestMapping("/deleteAccount")
