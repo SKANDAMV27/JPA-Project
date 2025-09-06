@@ -175,4 +175,9 @@ public class XworkzRepositryImp implements XworkzRepositry {
         }
 
     }
+
+    @Override
+    public String verifyOTP(String email, String otp) {
+        return "";
+    }
 }
