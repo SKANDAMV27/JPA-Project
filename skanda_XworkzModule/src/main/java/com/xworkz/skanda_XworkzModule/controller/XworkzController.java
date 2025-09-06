@@ -127,6 +127,7 @@ public class XworkzController {
         if(bindingResult.hasErrors()) {
             List<ObjectError> objectErrorList = bindingResult.getAllErrors();
             for (ObjectError objectError : objectErrorList) {
+                model.addAttribute("error","Email cannot be Exist");
                 System.out.println("Invalid.,");
                 System.out.println(objectError.getDefaultMessage());
                 return "forgotPassword";
@@ -140,10 +141,14 @@ public class XworkzController {
         return "forgotPassword";
     }
 
-    @RequestMapping("/xworkz")
-    public String delete(XworkzDTO xworkzDTO){
+    @RequestMapping("/deleteAccount")
+    public String delete(XworkzDTO xworkzDTO,Model model){
+        System.out.println("Delete The Account Controller");
+        String result = xworkzServiceImp.delete(xworkzDTO);
+        model.addAttribute("error","Email doesnot Exist");
+        System.out.println(result);
 
-        return "";
+        return "deleteResult";
     }
 }
 

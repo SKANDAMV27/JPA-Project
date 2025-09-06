@@ -11,6 +11,7 @@ import java.time.LocalTime;
 @Table(name="xworkz_table")
 @NamedQuery(name = "emailValidiation", query = "SELECT e FROM XworkzEntity e WHERE e.userEmail = :email")
 @NamedQuery(name="otpSend", query = "SELECT e FROM XworkzEntity e WHERE e.userEmail = :email")
+@NamedQuery(name="deleteAccount",query = "DELETE FROM XworkzEntity e WHERE e.userEmail = :email")
 public class XworkzEntity {
 
     @Id

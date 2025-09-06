@@ -171,7 +171,19 @@ public class XworkzServiceImp implements XworkzService {
 
     @Override
     public String delete(XworkzDTO xworkzDTO) {
-        return "";
+
+        System.out.println("Delete Service");
+        XworkzEntity xworkzEntity = new XworkzEntity();
+        String result = xworkzRepositryImp.delete(xworkzDTO.getUserEmail());
+        System.out.println(result);
+        System.out.println("Delete Email: "+xworkzDTO.getUserEmail());
+
+        String deleteEmail = xworkzDTO.getUserEmail();
+        String head = "Account Deletion Confirmation";
+        String body = "Dear "+xworkzDTO.getUserName()+",\n\nThankyou For Deleting The Account";
+        sendEmail(deleteEmail,head,body);
+        return result;
+
     }
 
 

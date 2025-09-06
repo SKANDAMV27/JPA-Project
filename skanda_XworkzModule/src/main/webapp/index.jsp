@@ -107,6 +107,7 @@
         <div class="d-flex">
           <a href="signUp.jsp" class="btn btn-outline-primary me-2">Sign Up</a>
           <a href="signIn.jsp" class="btn btn-primary">Sign In</a>
+          <a href="deleteAccount.jsp" class="btn btn-danger">Delete</a>
         </div>
       </div>
     </div>

@@ -148,7 +148,31 @@ public class XworkzRepositryImp implements XworkzRepositry {
     }
 
     @Override
-    public String delete(XworkzEntity xworkz) {
-        return "";
+    public String delete(String email) {
+        System.out.println("Delete Repository");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        try{
+            entityTransaction.begin();
+            Query query = entityManager.createNamedQuery("deleteAccount");
+            query.setParameter("email",email);
+            int result = query.executeUpdate();
+            entityTransaction.commit();
+            if(result>0){
+                return "Account Is Deleted";
+            }
+            return "Account Not Be Deleted";
+
+        } catch (Exception e) {
+            if(entityTransaction.isActive()){
+                entityTransaction.rollback();
+                System.out.println("Error In deleting");
+            }
+            throw new RuntimeException(e);
+        }
+        finally {
+            entityManager.close();
+        }
+
     }
 }
