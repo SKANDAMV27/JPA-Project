@@ -6,6 +6,7 @@ import lombok.Data;
 
 import javax.persistence.Transient;
 import javax.validation.constraints.*;
+import java.time.LocalTime;
 
 @Data
 public class XworkzDTO {
@@ -45,6 +46,8 @@ public class XworkzDTO {
 
     @NotNull
     private String otpcode;
+
+    private LocalTime otpTime;
 
 
 }

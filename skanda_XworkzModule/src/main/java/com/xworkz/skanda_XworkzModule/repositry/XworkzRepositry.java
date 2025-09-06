@@ -19,5 +19,5 @@ public interface XworkzRepositry {
 
      public String delete(String email);
 
-     public String verifyOTP(String email,String otp);
+     public String verifyOTP(String email, String otp);
 }

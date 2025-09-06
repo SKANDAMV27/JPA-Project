@@ -173,7 +173,7 @@ public class XworkzServiceImp implements XworkzService {
     public String delete(XworkzDTO xworkzDTO) {
 
         System.out.println("Delete Service");
-        XworkzEntity xworkzEntity = new XworkzEntity();
+//        XworkzEntity xworkzEntity = new XworkzEntity();
         String result = xworkzRepositryImp.delete(xworkzDTO.getUserEmail());
         System.out.println(result);
         System.out.println("Delete Email: "+xworkzDTO.getUserEmail());
@@ -187,9 +187,29 @@ public class XworkzServiceImp implements XworkzService {
     }
 
     @Override
-    public String verifyOTP(String email, String OTP) {
-        return "";
-    }
+    public String verifyOTP(String email, String otp) {
+        System.out.println("Verify OTP Service");
 
+        // Fetch user entity from DB
+        String user = xworkzRepositryImp.verifyOTP(email,otp);
+
+        if (user == null) {
+            return "Email does not exist!";
+        }
+
+        // Check if OTP matches
+        if (user.getOtp() == null || !user.getOtp().equals(otp)) {
+            return "Invalid OTP!";
+        }
+
+        // Check OTP expiry (valid only for 5 minutes)
+        if (user.getOtpGeneratedTime() == null ||
+                user.getOtpGeneratedTime().plusMinutes(5).isBefore(LocalDateTime.now())) {
+            return "OTP expired! Please request a new one.";
+        }
+
+        // OTP is valid
+        return "SUCCESS";
+    }
 
 }
