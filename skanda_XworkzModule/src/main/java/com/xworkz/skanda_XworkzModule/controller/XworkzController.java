@@ -144,6 +144,7 @@ public class XworkzController {
     @RequestMapping("/VerifyOTP")
     public String VerifyOTP(XworkzDTO xworkzDTO,Model model){
         System.out.println("Verify OTP Controller");
+
         return "passwordChange";
     }
 
