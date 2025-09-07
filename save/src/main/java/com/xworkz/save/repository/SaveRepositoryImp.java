@@ -130,7 +130,7 @@ public class SaveRepositoryImp implements SaveRepository {
             if (rowsDeleted > 0) {
                 return "Deleted Successfully";
             } else {
-                return "No record found  this name";
+                return "No record found with this name";
             }
 
         } catch (Exception e) {
