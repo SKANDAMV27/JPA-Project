@@ -44,11 +44,11 @@ public class XworkzConfiguration implements WebMvcConfigurer {
         return new InternalResourceViewResolver("/",".jsp");
     }
 
-//    @Bean
-//    public EntityManagerFactory getEntityManagerFactory()
-//    {
-//        return Persistence.createEntityManagerFactory("X-workZ");
-//    }
+    @Bean
+    public EntityManagerFactory getEntityManagerFactory()
+    {
+        return Persistence.createEntityManagerFactory("X-workZ");
+    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(){

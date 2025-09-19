@@ -36,19 +36,19 @@ public class XworkzServiceImp implements XworkzService {
         xworkz.setUserPassword(xworkzDTO.getUserPassword()); // plain before encoding
         xworkz.setUserAdress(xworkzDTO.getUserAdress());
         xworkz.setUserGender(xworkzDTO.getGender());
-        String result =  xworkzRepositryImp.save(xworkz);
+        String result = xworkzRepositryImp.save(xworkz);
 
         String email = xworkz.getUserEmail();
         String head = "WelCome To X-WorkZ";
-        String body = "Dear "+xworkzDTO.getUserName()+",\n\nThankyou For Regestering"+
-                "\n\nName: "+xworkzDTO.getUserName()
-                +"\n\nEmail: "+xworkzDTO.getUserEmail()+
-                "\n\nPassword: "+xworkzDTO.getUserPassword()+
-                "\n\nCity: "+xworkzDTO.getUserAdress()+"\n\n"+"\n\n"
-                +"\n\nSkanda M V"+
-                "\n\n9353193240"+"" +
+        String body = "Dear " + xworkzDTO.getUserName() + ",\n\nThankyou For Regestering" +
+                "\n\nName: " + xworkzDTO.getUserName()
+                + "\n\nEmail: " + xworkzDTO.getUserEmail() +
+                "\n\nPassword: " + xworkzDTO.getUserPassword() +
+                "\n\nCity: " + xworkzDTO.getUserAdress() + "\n\n" + "\n\n"
+                + "\n\nSkanda M V" +
+                "\n\n9353193240" + "" +
                 "\n\nskandagowda0@gmail.com";
-        sendEmail(email,head,body);
+        sendEmail(email, head, body);
 
         return result;
     }
@@ -93,7 +93,6 @@ public class XworkzServiceImp implements XworkzService {
         System.out.println("Service: SignIn Validation");
 
 
-
         // 1. Check if email exists
         XworkzEntity user = xworkzRepositryImp.signInValidation(email);
 
@@ -103,16 +102,16 @@ public class XworkzServiceImp implements XworkzService {
 
         // 2. Check if account is locked
 
-            if (user.getLockTime() != null &&
-                    user.getLockTime().plusHours(24).isAfter(LocalDateTime.now())) {
-                return "LOCKED"; // still locked
-            } else {
-                // Unlock after 24 hrs
+        if (user.getLockTime() != null &&
+                user.getLockTime().plusHours(24).isAfter(LocalDateTime.now())) {
+            return "LOCKED"; // still locked
+        } else {
+            // Unlock after 24 hrs
 //                user.setAccountLocked(false);
-                user.setFailedAttempts(0);
-                user.setLockTime(null);
-                xworkzRepositryImp.updateUser(user);
-            }
+            user.setFailedAttempts(0);
+            user.setLockTime(null);
+            xworkzRepositryImp.updateUser(user);
+        }
 
 
         // 3. Verify password
@@ -142,12 +141,12 @@ public class XworkzServiceImp implements XworkzService {
     }
 
     @Override
-    public String sendOTP(String email,EmailDTO emailDTO) {
+    public String sendOTP(String email, EmailDTO emailDTO) {
         System.out.println("Send OTP Service");
-        XworkzEntity user =  xworkzRepositryImp.otpSend(email);
+        XworkzEntity user = xworkzRepositryImp.otpSend(email);
         System.out.println(user);
 
-        if(user==null){
+        if (user == null) {
             System.out.println("Email Id Not Found");
             return "Email Not Found";
         }
@@ -162,10 +161,10 @@ public class XworkzServiceImp implements XworkzService {
 
         String otpEmail = emailDTO.getEmail();
         String head = "X-WorkZ OTP Verification";
-        String body = "Dear "+emailDTO.getName()+",\n\nYour OTP Code:"+otp+"\n\nRegards,\n\nSkanda M V\n\n9353193240\n\nskandagowda0@gmail.com";
-        sendEmail(otpEmail,head,body);
+        String body = "Dear " + emailDTO.getName() + ",\n\nYour OTP Code:" + otp + "\n\nRegards,\n\nSkanda M V\n\n9353193240\n\nskandagowda0@gmail.com";
+        sendEmail(otpEmail, head, body);
 
-        return "One Time Password Send Successfully To: "+emailDTO.getEmail();
+        return "One Time Password Send Successfully To: " + emailDTO.getEmail();
 
     }
 
@@ -176,40 +175,40 @@ public class XworkzServiceImp implements XworkzService {
 //        XworkzEntity xworkzEntity = new XworkzEntity();
         String result = xworkzRepositryImp.delete(xworkzDTO.getUserEmail());
         System.out.println(result);
-        System.out.println("Delete Email: "+xworkzDTO.getUserEmail());
+        System.out.println("Delete Email: " + xworkzDTO.getUserEmail());
 
         String deleteEmail = xworkzDTO.getUserEmail();
         String head = "Account Deletion Confirmation";
-        String body = "Dear "+xworkzDTO.getUserName()+",\n\nThankyou For Deleting The Account";
-        sendEmail(deleteEmail,head,body);
+        String body = "Dear " + xworkzDTO.getUserName() + ",\n\nThankyou For Deleting The Account";
+        sendEmail(deleteEmail, head, body);
         return result;
 
     }
-
-    @Override
-    public String verifyOTP(String email, String otp) {
-        System.out.println("Verify OTP Service");
-
-        // Fetch user entity from DB
-        String user = xworkzRepositryImp.verifyOTP(email,otp);
-
-        if (user == null) {
-            return "Email does not exist!";
-        }
-
-        // Check if OTP matches
-        if (user.getOtp() == null || !user.getOtp().equals(otp)) {
-            return "Invalid OTP!";
-        }
-
-        // Check OTP expiry (valid only for 5 minutes)
-        if (user.getOtpGeneratedTime() == null ||
-                user.getOtpGeneratedTime().plusMinutes(5).isBefore(LocalDateTime.now())) {
-            return "OTP expired! Please request a new one.";
-        }
-
-        // OTP is valid
-        return "SUCCESS";
-    }
+//
+//    @Override
+//    public String verifyOTP(String email, String otp) {
+//        System.out.println("Verify OTP Service");
+//
+//        // Fetch user entity from DB
+//        String user = xworkzRepositryImp.verifyOTP(email,otp);
+//
+//        if (user == null) {
+//            return "Email does not exist!";
+//        }
+//
+//        // Check if OTP matches
+//        if (user.getOtp() == null || !user.getOtp().equals(otp)) {
+//            return "Invalid OTP!";
+//        }
+//
+//        // Check OTP expiry (valid only for 5 minutes)
+//        if (user.getOtpGeneratedTime() == null ||
+//                user.getOtpGeneratedTime().plusMinutes(5).isBefore(LocalDateTime.now())) {
+//            return "OTP expired! Please request a new one.";
+//        }
+//
+//        // OTP is valid
+//        return "SUCCESS";
+//    }
 
 }
