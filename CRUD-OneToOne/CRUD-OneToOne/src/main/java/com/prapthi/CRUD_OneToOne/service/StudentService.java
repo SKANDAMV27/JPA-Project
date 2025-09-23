@@ -71,9 +71,8 @@ public class StudentService {
     }
 
     public List<StudentDto> getAll(){
-        return (List<StudentDto>) studentRepository.findAll().
-                stream().
-                map(this::toDto).
-                collect(Collectors.toSet());
+        List<StudentEntity> findAll = studentRepository.findAll();
+        return findAll.stream().map(this::toDto).collect(Collectors.toList());
+
     }
 }
