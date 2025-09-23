@@ -2,7 +2,9 @@ package com.prapthi.CRUD_OneToOne.service;
 
 import com.prapthi.CRUD_OneToOne.dto.ResumeDto;
 import com.prapthi.CRUD_OneToOne.entity.ResumeEntity;
+import com.prapthi.CRUD_OneToOne.entity.StudentEntity;
 import com.prapthi.CRUD_OneToOne.repositry.ResumeRepository;
+import com.prapthi.CRUD_OneToOne.repositry.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,38 +14,41 @@ public class ResumeService {
     @Autowired
     private ResumeRepository resumeRepository;
 
-    public ResumeDto resumeDto(ResumeEntity resumeEntity){
-        if(resumeEntity==null){
-            return null;
-        }
-        return resumeDto(resumeEntity.getStudent().getResumeEntity());
-    }
+    @Autowired
+    private StudentRepository studentRepository;
 
-    public ResumeEntity resumeEntity(ResumeDto resumeDto){
-        if(resumeDto==null){
-            return null;
-        }
-        return new ResumeEntity(resumeDto.getId(), resumeDto.getContext(),resumeDto.getStudent());
-    }
-
-    public ResumeDto toDto(ResumeEntity resumeEntity){
-        return new ResumeDto(resumeEntity.getId(),
-                resumeEntity.getContext(),
-                resumeDto(resumeEntity.getStudent().getResumeEntity()).getStudent());
-    }
-
+    // Convert DTO -> Entity
     public ResumeEntity toEntity(ResumeDto resumeDto){
         ResumeEntity resumeEntity = new ResumeEntity();
         resumeEntity.setId(resumeDto.getId());
         resumeEntity.setContext(resumeDto.getContext());
-        resumeEntity.setStudent(resumeDto.getStudent());
+
+        if(resumeDto.getStudentId() != null){
+            StudentEntity student = studentRepository.findById(resumeDto.getStudentId())
+                    .orElseThrow(() -> new RuntimeException("Student not found with id: " + resumeDto.getStudentId()));
+            resumeEntity.setStudent(student);
+        }
+
         return resumeEntity;
     }
 
+    // Convert Entity -> DTO
+    public ResumeDto toDto(ResumeEntity resumeEntity){
+        ResumeDto dto = new ResumeDto();
+        dto.setId(resumeEntity.getId());
+        dto.setContext(resumeEntity.getContext());
+
+        if(resumeEntity.getStudent() != null){
+            dto.setStudentId(resumeEntity.getStudent().getId());
+        }
+
+        return dto;
+    }
+
+    // Save Resume
     public ResumeDto save(ResumeDto resumeDto){
-               ResumeEntity resumeEntity = toEntity(resumeDto);
-               ResumeEntity save = resumeRepository.save(resumeEntity);
-               return toDto(save);
+        ResumeEntity resumeEntity = toEntity(resumeDto);
+        ResumeEntity saved = resumeRepository.save(resumeEntity);
+        return toDto(saved);
     }
 }
-

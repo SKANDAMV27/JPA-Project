@@ -18,12 +18,13 @@ public class StudentService {
         ResumeDto dto = new ResumeDto();
         dto.setId(resume.getId());
         dto.setContext(resume.getContext());
-        dto.setStudent(null);
+        dto.setStudentId(null);
         return dto;
     }
 
     private ResumeEntity toResumeEntity(ResumeDto resumeDto){
-        if(resumeDto == null) return null;
+        if(resumeDto == null)
+            return null;
         ResumeEntity resume = new ResumeEntity();
         resume.setId(resumeDto.getId());
         resume.setContext(resumeDto.getContext());

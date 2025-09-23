@@ -11,9 +11,7 @@ import lombok.NoArgsConstructor;
 public class ResumeDto {
 
     private long id;
-
     private String context;
-
-    private StudentDto student;
-
+    private Long studentId;  // Only store the ID of the student
 }
+
