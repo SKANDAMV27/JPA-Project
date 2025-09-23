@@ -8,6 +8,9 @@ import com.prapthi.CRUD_OneToOne.repositry.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ResumeService {
 
@@ -50,5 +53,11 @@ public class ResumeService {
         ResumeEntity resumeEntity = toEntity(resumeDto);
         ResumeEntity saved = resumeRepository.save(resumeEntity);
         return toDto(saved);
+    }
+
+    public List<ResumeDto> readAll(){
+         List<ResumeEntity> readAll = resumeRepository.findAll();
+        System.out.println("ALl The Data Read");
+         return readAll.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

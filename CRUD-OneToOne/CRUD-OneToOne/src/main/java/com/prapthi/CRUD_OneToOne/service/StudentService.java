@@ -17,25 +17,28 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    // Convert ResumeEntity -> ResumeDto
     private ResumeDto toResumeDto(ResumeEntity resume){
         if(resume == null) return null;
         ResumeDto dto = new ResumeDto();
         dto.setId(resume.getId());
         dto.setContext(resume.getContext());
-        dto.setStudentId(null);
+        dto.setStudentId(resume.getStudent() != null ? resume.getStudent().getId() : null);
         return dto;
     }
 
+    // Convert ResumeDto -> ResumeEntity
     private ResumeEntity toResumeEntity(ResumeDto resumeDto){
         if(resumeDto == null)
             return null;
         ResumeEntity resume = new ResumeEntity();
         resume.setId(resumeDto.getId());
         resume.setContext(resumeDto.getContext());
-        resume.setStudent(null);
+
         return resume;
     }
 
+    // Convert StudentEntity -> StudentDto
     public StudentDto toDto(StudentEntity student){
         if(student == null)
             return null;
@@ -48,6 +51,7 @@ public class StudentService {
         );
     }
 
+    // Convert StudentDto -> StudentEntity
     public StudentEntity toEntity(StudentDto studentDto){
         if(studentDto == null)
             return null;
@@ -56,23 +60,26 @@ public class StudentService {
         student.setStudentName(studentDto.getStudentName());
         student.setStudentDept(studentDto.getStudentDept());
         student.setStudentContactNumber(studentDto.getStudentContactNumber());
-        toResumeEntity(studentDto.getResumeDto());
-//        if(resume != null){
-//            resume.setStudent(student);
-//            student.setResumeEntity(resume);
-//        }
+
+        ResumeEntity resume = toResumeEntity(studentDto.getResumeDto());
+        if(resume != null){
+            resume.setStudent(student); // link student to resume
+            student.setResumeEntity(resume); // link resume to student
+        }
+
         return student;
     }
 
+    // Save Student (with Resume)
     public StudentDto save(StudentDto studentDto){
         StudentEntity studentEntity = toEntity(studentDto);
         StudentEntity saved = studentRepository.save(studentEntity);
         return toDto(saved);
     }
 
+    // Get all students with their resumes
     public List<StudentDto> getAll(){
         List<StudentEntity> findAll = studentRepository.findAll();
         return findAll.stream().map(this::toDto).collect(Collectors.toList());
-
     }
 }
