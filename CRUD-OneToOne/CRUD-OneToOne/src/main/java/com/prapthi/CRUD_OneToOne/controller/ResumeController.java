@@ -26,6 +26,12 @@ public class ResumeController {
     public List<ResumeDto> readAll(@RequestBody ResumeDto resumeDto){
         System.out.println("Get All The Data Read");
         return resumeService.readAll();
+    }
+
+    @GetMapping("/getById/{id}")
+    public ResumeDto readById(@PathVariable long id){
+        System.out.println("Get The Data By the Id");
+        return resumeService.readById(id);
 
     }
 }

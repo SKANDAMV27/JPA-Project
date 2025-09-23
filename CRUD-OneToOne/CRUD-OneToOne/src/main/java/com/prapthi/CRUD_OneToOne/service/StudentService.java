@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,16 +71,59 @@ public class StudentService {
         return student;
     }
 
-    // Save Student (with Resume)
+
     public StudentDto save(StudentDto studentDto){
         StudentEntity studentEntity = toEntity(studentDto);
         StudentEntity saved = studentRepository.save(studentEntity);
         return toDto(saved);
     }
 
-    // Get all students with their resumes
+
     public List<StudentDto> getAll(){
         List<StudentEntity> findAll = studentRepository.findAll();
         return findAll.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    public StudentDto getById(long id,StudentDto studentDto){
+        System.out.println("Update by Id");
+        return  studentRepository.findById(id).map(this::toDto).orElse(null);
+    }
+
+    public boolean deleteById(long id) {
+        System.out.println("Delete By Id");
+
+        if (studentRepository.existsById(id)) {
+            studentRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public StudentDto updateById(long id, StudentDto studentDto) {
+        System.out.println("Update By Id");
+        return studentRepository.findById(id).map(exist -> {
+            if (studentDto.getStudentName() != null) {
+                exist.setStudentName(studentDto.getStudentName());
+            }
+            if (studentDto.getStudentDept() != null) {
+                exist.setStudentDept(studentDto.getStudentDept());
+            }
+            if (studentDto.getStudentContactNumber() != null) {
+                exist.setStudentContactNumber(studentDto.getStudentContactNumber());
+            }
+            if (studentDto.getResumeDto() != null) {
+                ResumeEntity resume = exist.getResumeEntity();
+                if (resume == null) {
+                    resume = new ResumeEntity();
+                    resume.setStudent(exist);
+                }
+                resume.setContext(studentDto.getResumeDto().getContext());
+                exist.setResumeEntity(resume);
+            }
+            StudentEntity updated = studentRepository.save(exist);
+            return toDto(updated);
+        }).orElse(null);
+    }
+
 }

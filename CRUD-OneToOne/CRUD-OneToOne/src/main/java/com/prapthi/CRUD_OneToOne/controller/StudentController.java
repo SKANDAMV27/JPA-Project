@@ -27,4 +27,23 @@ public class StudentController {
         return studentService.getAll();
     }
 
+    @GetMapping("/getById/{id}")
+    public StudentDto getById(@PathVariable long id,@RequestBody StudentDto studentDto){
+        System.out.println("Data Get By Id");
+        return studentService.getById(id,studentDto);
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    public boolean deleteById(@PathVariable long id){
+        System.out.println("Delete Successfully: "+id);
+        return studentService.deleteById(id);
+    }
+
+    @PutMapping("/putById/{id}")
+    public StudentDto putById(@PathVariable long id,@RequestBody StudentDto studentDto){
+        System.out.println("Update Successfully By Id:"+id);
+        return studentService.updateById(id,studentDto);
+
+    }
+
 }
