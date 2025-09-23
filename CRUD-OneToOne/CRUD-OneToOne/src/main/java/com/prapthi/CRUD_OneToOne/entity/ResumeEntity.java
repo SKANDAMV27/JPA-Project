@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class resumeEntity {
+public class ResumeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +21,5 @@ public class resumeEntity {
     @OneToOne
     @JoinColumn(name="studentId", nullable = false)
     @JsonIgnore
-    private studentEntity student;
+    private StudentEntity student;
 }

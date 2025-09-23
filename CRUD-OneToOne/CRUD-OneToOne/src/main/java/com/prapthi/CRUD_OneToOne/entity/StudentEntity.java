@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class studentEntity {
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,6 @@ public class studentEntity {
 
     private String studentContactNumber;
 
-    @OneToOne(mappedBy = "")
-    private resumeEntity resumeEntity;
+    @OneToOne(mappedBy = "student",cascade =CascadeType.ALL )
+    private ResumeEntity resumeEntity;
 }
