@@ -1,4 +1,4 @@
 package com.prapthi.CRUD_OneToOne.controller;
 
-public class OneToOneController {
+public class StudentController {
 }
