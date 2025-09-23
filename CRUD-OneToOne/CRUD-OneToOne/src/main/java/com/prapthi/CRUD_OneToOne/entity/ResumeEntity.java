@@ -19,7 +19,7 @@ public class ResumeEntity {
     private String context;
 
     @OneToOne
-    @JoinColumn(name="studentId", nullable = false)
+    @JoinColumn(name="studentId", nullable = true)
     @JsonIgnore
     private StudentEntity student;
 }
