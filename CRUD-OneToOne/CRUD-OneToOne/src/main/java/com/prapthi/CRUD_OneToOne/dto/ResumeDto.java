@@ -12,6 +12,6 @@ public class ResumeDto {
 
     private long id;
     private String context;
-    private Long studentId;  // Only store the ID of the student
+    private Long studentId;
 }
 
