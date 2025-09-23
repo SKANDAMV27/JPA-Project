@@ -9,4 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResumeDto {
 
+    private long id;
+
+    private String context;
+
 }
