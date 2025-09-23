@@ -14,6 +14,6 @@ public class ResumeDto {
 
     private String context;
 
-    private StudentEntity student;
+    private StudentDto student;
 
 }

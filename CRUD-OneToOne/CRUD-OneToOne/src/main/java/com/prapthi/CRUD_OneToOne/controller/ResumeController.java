@@ -4,6 +4,7 @@ import com.prapthi.CRUD_OneToOne.dto.ResumeDto;
 import com.prapthi.CRUD_OneToOne.service.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class ResumeController {
 
 
     @PostMapping("/")
-    public ResumeDto saveAll(ResumeDto resumeDto){
+    public ResumeDto saveAll(@RequestBody ResumeDto resumeDto){
         System.out.println("Data Saved Successfully");
 
         return resumeService.save(resumeDto);
