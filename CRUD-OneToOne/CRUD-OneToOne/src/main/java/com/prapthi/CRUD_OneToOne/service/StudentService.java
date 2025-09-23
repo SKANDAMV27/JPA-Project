@@ -19,7 +19,7 @@ public class StudentService {
         if (resumeEntity == null) {
             return null;
         }
-        return new ResumeDto(resumeEntity.getId(), resumeEntity.getContext());
+        return new ResumeDto(resumeEntity.getId(), resumeEntity.getContext(),resumeEntity.getStudent());
     }
 
     private ResumeEntity toResumeEntity(ResumeDto resumeDto) {
