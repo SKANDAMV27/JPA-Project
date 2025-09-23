@@ -7,6 +7,10 @@ import com.prapthi.CRUD_OneToOne.entity.StudentEntity;
 import com.prapthi.CRUD_OneToOne.repositry.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class StudentService {
 
@@ -33,7 +37,8 @@ public class StudentService {
     }
 
     public StudentDto toDto(StudentEntity student){
-        if(student == null) return null;
+        if(student == null)
+            return null;
         return new StudentDto(
                 student.getId(),
                 student.getStudentName(),
@@ -44,17 +49,18 @@ public class StudentService {
     }
 
     public StudentEntity toEntity(StudentDto studentDto){
-        if(studentDto == null) return null;
+        if(studentDto == null)
+            return null;
         StudentEntity student = new StudentEntity();
         student.setId(studentDto.getId());
         student.setStudentName(studentDto.getStudentName());
         student.setStudentDept(studentDto.getStudentDept());
         student.setStudentContactNumber(studentDto.getStudentContactNumber());
-        ResumeEntity resume = toResumeEntity(studentDto.getResumeDto());
-        if(resume != null){
-            resume.setStudent(student);
-            student.setResumeEntity(resume);
-        }
+        toResumeEntity(studentDto.getResumeDto());
+//        if(resume != null){
+//            resume.setStudent(student);
+//            student.setResumeEntity(resume);
+//        }
         return student;
     }
 
@@ -62,5 +68,12 @@ public class StudentService {
         StudentEntity studentEntity = toEntity(studentDto);
         StudentEntity saved = studentRepository.save(studentEntity);
         return toDto(saved);
+    }
+
+    public List<StudentDto> getAll(){
+        return (List<StudentDto>) studentRepository.findAll().
+                stream().
+                map(this::toDto).
+                collect(Collectors.toSet());
     }
 }
