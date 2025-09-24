@@ -9,11 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StudentDto {
 
-
     private long id;
-
     private String studentName;
-
     private char studentSection;
 
     private SchoolDto schoolDto;

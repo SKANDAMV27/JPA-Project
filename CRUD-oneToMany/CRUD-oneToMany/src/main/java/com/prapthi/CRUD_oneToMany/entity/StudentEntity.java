@@ -20,9 +20,9 @@ public class StudentEntity {
 
     private char studentSection;
 
-    @OneToMany
-    @JoinColumn(name="schoolId",nullable = true)
-    @JsonIgnore
-    private StudentEntity studentEntity;
 
+    @ManyToOne
+    @JoinColumn(name = "school_id")
+    @JsonIgnore
+    private SchoolEntity school;
 }

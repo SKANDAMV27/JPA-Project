@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,7 +23,7 @@ public class SchoolEntity {
 
     private String schoolType;
 
-    @OneToMany(mappedBy = "schoolId",cascade = CascadeType.ALL)
-    private StudentEntity studentEntity;
 
+    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<StudentEntity> students;
 }
