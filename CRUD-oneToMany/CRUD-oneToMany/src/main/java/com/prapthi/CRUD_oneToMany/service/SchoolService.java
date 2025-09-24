@@ -92,7 +92,11 @@ public class SchoolService {
         SchoolEntity schoolEntity = toSchoolEntity(schoolDto);
         SchoolEntity save = schoolRepository.save(schoolEntity);
          return toSchoolDto(save);
+    }
 
+    public List<SchoolDto> findAll(){
+        System.out.println("Get All The Data");
+         return schoolRepository.findAll().stream().map(this::toSchoolDto).toList();
     }
 
 }
