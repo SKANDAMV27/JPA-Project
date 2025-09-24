@@ -23,6 +23,5 @@ public class StudentEntity {
 
     @ManyToOne
     @JoinColumn(name = "school_id")
-    @JsonIgnore
     private SchoolEntity school;
 }
