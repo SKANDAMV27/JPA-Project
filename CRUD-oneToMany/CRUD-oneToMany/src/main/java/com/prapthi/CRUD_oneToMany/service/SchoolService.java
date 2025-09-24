@@ -99,10 +99,34 @@ public class SchoolService {
          return schoolRepository.findAll().stream().map(this::toSchoolDto).toList();
     }
 
-    public SchoolDto findById(long id){
+    public SchoolDto findById(long id) {
         System.out.println("Get Data By Id");
-        return (SchoolDto) schoolRepository.findById(id).stream().map(this::toSchoolDto).toList();
+        return schoolRepository.findById(id)
+                .map(this::toSchoolDto)
+                .orElseThrow(() -> new RuntimeException("School not found with id " + id));
+    }
+
+    public SchoolDto updateById(long id, SchoolDto schoolDto) {
+        return schoolRepository.findById(id).map(existingSchool -> {
+
+            existingSchool.setSchoolName(schoolDto.getSchoolName());
+            existingSchool.setSchoolCity(schoolDto.getSchoolCity());
+            existingSchool.setSchoolType(schoolDto.getSchoolType());
+
+            if (schoolDto.getStudentDtos() != null) {
+                existingSchool.getStudents().clear();
+                existingSchool.getStudents().addAll(
+                        schoolDto.getStudentDtos().stream()
+                                .map(this::toStudentEntity)
+                                .toList()
+                );
+            }
+            SchoolEntity updated = schoolRepository.save(existingSchool);
+            return toSchoolDto(updated);
+        }).orElseThrow(() -> new RuntimeException("School not found with id " + id));
+    }
 
     }
 
-}
+
+

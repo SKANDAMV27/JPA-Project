@@ -26,10 +26,15 @@ public class SchoolController {
         return service.findAll();
     }
 
-    @GetMapping("/getById")
-    public SchoolDto getById(long id){
+    @GetMapping("/getById/{id}")
+    public SchoolDto getById(@PathVariable long id){
         System.out.println("Get The Data By Id");
         return service.findById(id);
+    }
 
+    @PutMapping("/putById/{id}")
+    public SchoolDto putById(@PathVariable long id,@RequestBody SchoolDto schoolDto){
+        System.out.println("Update The Data By The Id");
+        return service.updateById(id,schoolDto);
     }
 }
