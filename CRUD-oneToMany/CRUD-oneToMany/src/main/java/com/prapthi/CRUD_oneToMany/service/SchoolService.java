@@ -99,4 +99,10 @@ public class SchoolService {
          return schoolRepository.findAll().stream().map(this::toSchoolDto).toList();
     }
 
+    public SchoolDto findById(long id){
+        System.out.println("Get Data By Id");
+        return (SchoolDto) schoolRepository.findById(id).stream().map(this::toSchoolDto).toList();
+
+    }
+
 }
