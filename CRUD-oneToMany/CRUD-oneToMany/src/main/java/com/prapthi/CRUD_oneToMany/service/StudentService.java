@@ -49,7 +49,7 @@ public class StudentService {
         studentDto.setStudentSection(studentEntity.getStudentSection());
 
         if(studentEntity.getSchool() != null){
-            // Only include school ID and name to avoid recursion
+
             SchoolDto schoolDto = new SchoolDto();
             schoolDto.setId(studentEntity.getSchool().getId());
             schoolDto.setSchoolName(studentEntity.getSchool().getSchoolName());
