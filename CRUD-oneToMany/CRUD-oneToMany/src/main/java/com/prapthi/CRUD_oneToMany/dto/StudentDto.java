@@ -1,17 +1,18 @@
 package com.prapthi.CRUD_oneToMany.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class StudentDto {
-
     private long id;
     private String studentName;
-    private char studentSection;
+    private String studentSection;
 
+    @JsonBackReference
     private SchoolDto schoolDto;
 }
