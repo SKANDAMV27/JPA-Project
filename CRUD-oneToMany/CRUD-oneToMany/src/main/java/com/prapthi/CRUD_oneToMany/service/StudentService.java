@@ -14,20 +14,22 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    // Convert SchoolEntity -> SchoolDto
     public SchoolDto toSchoolDto(SchoolEntity schoolEntity){
-        if(schoolEntity==null){
+        if(schoolEntity == null){
             return null;
         }
         SchoolDto schoolDto = new SchoolDto();
         schoolDto.setId(schoolEntity.getId());
         schoolDto.setSchoolName(schoolEntity.getSchoolName());
-        schoolDto.setSchoolCity(schoolDto.getSchoolCity());
+        schoolDto.setSchoolCity(schoolEntity.getSchoolCity());
         schoolDto.setSchoolType(schoolEntity.getSchoolType());
         return schoolDto;
     }
 
+    // Convert SchoolDto -> SchoolEntity
     public SchoolEntity toSchoolEntity(SchoolDto schoolDto){
-        if(schoolDto==null){
+        if(schoolDto == null){
             return null;
         }
         SchoolEntity schoolEntity = new SchoolEntity();
@@ -38,18 +40,46 @@ public class StudentService {
         return schoolEntity;
     }
 
-    public StudentDto studentDto(StudentEntity studentEntity){
-        if(studentEntity==null){
+    // Convert StudentEntity -> StudentDto
+    public StudentDto toStudentDto(StudentEntity studentEntity){
+        if(studentEntity == null){
             return null;
         }
         StudentDto studentDto = new StudentDto();
         studentDto.setId(studentEntity.getId());
         studentDto.setStudentName(studentEntity.getStudentName());
         studentDto.setStudentSection(studentEntity.getStudentSection());
-        if(studentEntity.get)
 
+        // ✅ Add school info if available
+        if(studentEntity.getSchool() != null){
+            studentDto.setSchoolDto(toSchoolDto(studentEntity.getSchool()));
+        }
 
+        return studentDto;
     }
 
+    // Convert StudentDto -> StudentEntity
+    public StudentEntity toStudentEntity(StudentDto studentDto){
+        if(studentDto == null){
+            return null;
+        }
+        StudentEntity studentEntity = new StudentEntity();
+        studentEntity.setId(studentDto.getId());
+        studentEntity.setStudentName(studentDto.getStudentName());
+        studentEntity.setStudentSection(studentDto.getStudentSection());
 
+
+        if(studentDto.getSchoolDto() != null){
+            SchoolEntity schoolEntity = toSchoolEntity(studentDto.getSchoolDto());
+            studentEntity.setSchool(schoolEntity);
+        }
+
+        return studentEntity;
+    }
+
+    public StudentDto save(StudentDto studentDto){
+          StudentEntity studentEntity =  toStudentEntity(studentDto);
+          StudentEntity save =  studentRepository.save(studentEntity);
+          return toStudentDto(save);
+    }
 }
