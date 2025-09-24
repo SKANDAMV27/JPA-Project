@@ -17,7 +17,7 @@ public class SchoolService {
     @Autowired
     private SchoolRepository schoolRepository;
 
-    // ✅ Save
+
     public SchoolDto save(SchoolDto schoolDto) {
         SchoolEntity schoolEntity = toSchoolEntity(schoolDto);
         schoolEntity.getStudents().forEach(student -> student.setSchool(schoolEntity));
@@ -25,7 +25,7 @@ public class SchoolService {
         return toSchoolDto(saved);
     }
 
-    // ✅ Find All
+
     public List<SchoolDto> findAll() {
         return schoolRepository.findAll()
                 .stream()
@@ -33,7 +33,7 @@ public class SchoolService {
                 .collect(Collectors.toList());
     }
 
-    // ✅ Find By Id
+
     public SchoolDto findById(long id) {
         return schoolRepository.findById(id)
                 .map(this::toSchoolDto)
@@ -63,12 +63,12 @@ public class SchoolService {
         }).orElseThrow(() -> new RuntimeException("School not found with id: " + id));
     }
 
-    // ✅ Delete
+
     public void deleteById(long id) {
         schoolRepository.deleteById(id);
     }
 
-    // ---------------- Mappers ---------------- //
+
 
     private SchoolDto toSchoolDto(SchoolEntity schoolEntity) {
         if (schoolEntity == null) return null;
@@ -82,7 +82,7 @@ public class SchoolService {
         if (schoolEntity.getStudents() != null) {
             List<StudentDto> studentDtos = schoolEntity.getStudents()
                     .stream()
-                    .map(student -> toStudentDto(student, schoolDto)) // ✅ pass parent
+                    .map(student -> toStudentDto(student, schoolDto))
                     .collect(Collectors.toList());
             schoolDto.setStudentDtos(studentDtos);
         }
@@ -96,7 +96,7 @@ public class SchoolService {
         studentDto.setId(studentEntity.getId());
         studentDto.setStudentName(studentEntity.getStudentName());
         studentDto.setStudentSection(studentEntity.getStudentSection());
-        studentDto.setSchoolDto(parentSchoolDto); // ✅ set parent
+        studentDto.setSchoolDto(parentSchoolDto);
         return studentDto;
     }
 
