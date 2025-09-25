@@ -23,7 +23,7 @@ public class StudentEntity {
 
     @ManyToMany
     @JoinTable(name="student_Course" //this is new table
-            ,joinColumns = @JoinColumn(name="student_id",referencedColumnName = "id")//Parent Class Name
+            ,joinColumns = @JoinColumn(name="studentName",referencedColumnName = "id")//Parent Class Name
             ,inverseJoinColumns = @JoinColumn(name="course_id",referencedColumnName = "id"))//child class Name
     private List<CourseEntity> course;
 
