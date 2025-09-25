@@ -16,6 +16,6 @@ public class CourseDTO {
 
     private String courseName;
 
-//    @JsonBackReference
+    @JsonBackReference
     private List<StudentDTO> studentDTOList;
 }
