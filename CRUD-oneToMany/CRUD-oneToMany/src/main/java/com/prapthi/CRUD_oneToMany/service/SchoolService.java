@@ -89,15 +89,16 @@ public class SchoolService {
         return schoolDto;
     }
 
-    private StudentDto toStudentDto(StudentEntity studentEntity, SchoolDto parentSchoolDto) {
+    private StudentDto toStudentDto(StudentEntity studentEntity, SchoolDto schoolDto) {
         if (studentEntity == null) return null;
 
         StudentDto studentDto = new StudentDto();
         studentDto.setId(studentEntity.getId());
         studentDto.setStudentName(studentEntity.getStudentName());
         studentDto.setStudentSection(studentEntity.getStudentSection());
-        studentDto.setSchoolDto(parentSchoolDto);
+        studentDto.setSchoolDto(schoolDto);
         return studentDto;
+
     }
 
     private SchoolEntity toSchoolEntity(SchoolDto schoolDto) {
