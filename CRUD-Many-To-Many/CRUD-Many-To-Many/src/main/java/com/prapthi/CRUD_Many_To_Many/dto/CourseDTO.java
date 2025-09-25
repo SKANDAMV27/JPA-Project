@@ -1,7 +1,6 @@
 package com.prapthi.CRUD_Many_To_Many.dto;
 
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +16,6 @@ public class CourseDTO {
 
     private String courseName;
 
-    @JsonManagedReference
+    @JsonBackReference
     private List<StudentDTO> studentDTOList;
 }
