@@ -98,4 +98,13 @@ public class StudentService {
         }
         return studentEntity;
     }
+
+        public StudentDTO save(StudentDTO studentDTO){
+            System.out.println("Data Save");
+            StudentEntity studentEntity = toStudentEntity(studentDTO);
+            StudentEntity save =   studentRepository.save(studentEntity);
+            return toStudentDto(save);
+        }
+
+
 }
