@@ -18,7 +18,6 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    // Convert ResumeEntity -> ResumeDto
     private ResumeDto toResumeDto(ResumeEntity resume){
         if(resume == null) return null;
         ResumeDto dto = new ResumeDto();
@@ -28,7 +27,6 @@ public class StudentService {
         return dto;
     }
 
-    // Convert ResumeDto -> ResumeEntity
     private ResumeEntity toResumeEntity(ResumeDto resumeDto){
         if(resumeDto == null)
             return null;
@@ -39,7 +37,6 @@ public class StudentService {
         return resume;
     }
 
-    // Convert StudentEntity -> StudentDto
     public StudentDto toDto(StudentEntity student){
         if(student == null)
             return null;
@@ -52,7 +49,6 @@ public class StudentService {
         );
     }
 
-    // Convert StudentDto -> StudentEntity
     public StudentEntity toEntity(StudentDto studentDto){
         if(studentDto == null)
             return null;
@@ -64,20 +60,18 @@ public class StudentService {
 
         ResumeEntity resume = toResumeEntity(studentDto.getResumeDto());
         if(resume != null){
-            resume.setStudent(student); // link student to resume
-            student.setResumeEntity(resume); // link resume to student
+            resume.setStudent(student);
+            student.setResumeEntity(resume);
         }
 
         return student;
     }
-
 
     public StudentDto save(StudentDto studentDto){
         StudentEntity studentEntity = toEntity(studentDto);
         StudentEntity saved = studentRepository.save(studentEntity);
         return toDto(saved);
     }
-
 
     public List<StudentDto> getAll(){
         List<StudentEntity> findAll = studentRepository.findAll();
