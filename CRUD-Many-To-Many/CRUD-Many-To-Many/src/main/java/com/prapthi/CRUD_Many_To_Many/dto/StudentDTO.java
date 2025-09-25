@@ -18,7 +18,7 @@ public class StudentDTO {
 
     private String studentBranch;
 
-    @JsonBackReference
+//    @JsonBackReference
     private List<CourseDTO> courseDTOList;
 
 
