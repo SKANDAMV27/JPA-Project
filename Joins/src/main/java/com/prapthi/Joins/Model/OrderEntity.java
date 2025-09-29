@@ -17,10 +17,10 @@ public class OrderEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int  orderId;
 
     private String orderName;
 
 
-    private CustomerEntity customerEntities;
+    private int customerId;
 }
